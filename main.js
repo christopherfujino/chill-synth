@@ -60,5 +60,4 @@ class AudioPlayer {
   }
 }
 
-const audioPlayer = AudioPlayer.createAudioPlayer();
-
+AudioPlayer.createAudioPlayer();
