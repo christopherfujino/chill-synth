@@ -3,7 +3,7 @@ const http = require("http");
 
 const app = http.createServer((req, res) => {
   console.log(`Received a request for ${req.url}`);
-  fs.readFile(`.${req.url}`, function(err, content) {
+  fs.readFile(`./dist${req.url}`, function(err, content) {
     if (err) {
       console.log(`Error reading ${req.url} with ${err.code}`);
       res.writeHead(500);
@@ -13,6 +13,7 @@ const app = http.createServer((req, res) => {
         "Content-Type": "text/html",
       });
       res.end(content, "utf-8");
+      console.log(`Successfully served ${req.url}.`);
     }
   });
 });

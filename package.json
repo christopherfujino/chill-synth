@@ -5,11 +5,17 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "eslint": "^6.8.0"
+  },
+  "devDependencies": {
+    "tone": "^13.8.25",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }

@@ -1,3 +1,5 @@
+import * as Tone from "tone";
+
 class AudioPlayer {
   constructor (
     audioContext,
@@ -61,4 +63,4 @@ class AudioPlayer {
   }
 }
 
-AudioPlayer.createAudioPlayer();
+//AudioPlayer.createAudioPlayer();
