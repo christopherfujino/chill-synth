@@ -8,6 +8,7 @@ class AudioPlayer {
     this.audioContext = audioContext;
     /** This is a VCO */
     this.oscillator = oscillator;
+    /** This is a DOM input tag */
     this.playButton = playButton;
     /** This is a VCA */
     this.gainNode = audioContext.createGain();
