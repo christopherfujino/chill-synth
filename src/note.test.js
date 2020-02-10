@@ -1,14 +1,14 @@
 import Note from "./note.js";
 
 describe("Note", () => {
-  it("constructs without exception", () => {
-    const note = new Note();
-    expect(note).toBeInstanceOf(Note);
+  it("throws an exception when no constructor arg provided", () => {
+    expect(() => new Note()).toThrow();
   });
 
-  it(".midiNumber defaults to 0", () => {
-    const note = new Note();
-    expect(note.midiNumber).toEqual(0);
+  it("constructs without exception when midiNumber provided", () => {
+    const note = new Note(3);
+    expect(note).toBeInstanceOf(Note);
+    expect(note.midiNumber).toBe(3);
   });
 
   it(".toString() returns a valid String", () => {

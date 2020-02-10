@@ -15,7 +15,10 @@ const toneMap = new Map([
 
 export default class Note {
   /**Takes as an input a MIDI number (e.g. 32)*/
-  constructor(midiNumber = 0) {
+  constructor(midiNumber) {
+    if (midiNumber === undefined) {
+      throw "You must provide a midiNumber when constructing a Note";
+    }
     this.midiNumber = midiNumber;
   }
 
