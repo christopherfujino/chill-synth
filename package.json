@@ -1,15 +1,15 @@
 {
-  "name": "web-audio-demo",
+  "name": "chill-synth",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "find ./src/ -name '*.js*' | xargs eslint",
     "serve": "node server.js",
     "build": "webpack",
     "watch": "webpack --watch"
   },
-  "author": "",
+  "author": "Christopher Fujino",
   "license": "ISC",
   "dependencies": {
     "eslint": "^6.8.0"
