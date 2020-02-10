@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      # https://hub.docker.com/r/circleci/node
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout # Check out repo
+      - run:
+          name: install
+          command: npm ci
+      - run:
+          name: lint
+          command: npm run test
