@@ -16,6 +16,7 @@ module.exports = {
     // Generates index.html
     new HtmlWebpackPlugin({
       title: appTitle,
+      template: "./src/index.html",
     }),
   ],
 };
