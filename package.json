@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage=true",
     "lint": "find ./src/ -name '*.js*' | xargs eslint",
     "serve": "node server.js",
     "build": "webpack",

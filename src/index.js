@@ -8,6 +8,7 @@ function takeRandom(arr) {
 }
 
 class Scale {
+  /** TODO allow specifying a key */
   constructor() {
     this.scale = ["C", "D", "E", "F", "G", "A", "B"];
   }

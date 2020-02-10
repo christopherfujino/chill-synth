@@ -14,7 +14,9 @@ jobs:
           command: npm run lint
       - run:
           name: test
-          command: npm test
+          command: |
+            npm run coverage
+            bash <(curl -s https://codecov.io/bash)
       - run:
           name: build
           command: npm run build
