@@ -3,7 +3,7 @@ import Note from "./note.js";
 describe("Note", () => {
   it("constructs without exception", () => {
     const note = new Note();
-    expect(note).toBeDefined();
+    expect(note).toBeInstanceOf(Note);
   });
 
   it(".toString() returns a valid String", () => {

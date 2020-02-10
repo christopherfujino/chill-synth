@@ -3,7 +3,7 @@ import Scale from "./scale.js";
 describe("Scale", () => {
   it("constructs successfully", () => {
     const scale = new Scale();
-    expect(scale).toBeDefined();
+    expect(scale).toBeInstanceOf(Scale);
   });
 
   it("scale.scale should be an array of strings", () => {
