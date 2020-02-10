@@ -20,7 +20,9 @@ const synthOptions = {
 const synth = new Tone.Synth(synthOptions).toMaster();
 
 const loop = new Tone.Loop((time) => {
-  synth.triggerAttackRelease(scale.getNote(), "8n", time);
+  const note = scale.getNote();
+  console.log(note.toString());
+  synth.triggerAttackRelease(note.toString(), "8n", time);
 }, "4n");
 loop.start(0);
 

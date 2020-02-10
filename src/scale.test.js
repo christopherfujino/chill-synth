@@ -1,3 +1,4 @@
+import Note from "./note.js";
 import Scale from "./scale.js";
 
 describe("Scale", () => {
@@ -13,8 +14,8 @@ describe("Scale", () => {
 
   it(".getNote() returns a valid WebAudio API compative note string", () => {
     const scale = new Scale();
-    const noteString = scale.getNote();
-    expect(typeof noteString).toBe("string");
-    expect(noteString.length).toBeGreaterThanOrEqual(2);
+    const note = scale.getNote();
+    expect(note).toBeInstanceOf(Note);
+    expect(note.toString().length).toBeGreaterThanOrEqual(2);
   });
 });
