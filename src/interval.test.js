@@ -2,7 +2,6 @@ import Interval from "./interval.js";
 import Note from "./note.js";
 
 describe("interval", () => {
-
   it("throws if no distance provided to constructor", () => {
     expect(() => new Interval()).toThrow();
   });

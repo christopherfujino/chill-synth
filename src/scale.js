@@ -1,4 +1,4 @@
-import { takeRandom } from "./utils";
+import { takeRandom } from "./utils.js";
 
 export default class Scale {
   /** TODO allow specifying a key */
