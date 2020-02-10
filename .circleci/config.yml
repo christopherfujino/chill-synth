@@ -7,8 +7,11 @@ jobs:
     steps:
       - checkout # Check out repo
       - run:
-          name: install
-          command: npm ci
+        name: install
+        command: npm ci
       - run:
-          name: lint
-          command: npm run test
+        name: lint
+        command: npm run test
+      - run:
+        name: build
+        command: npm run build
