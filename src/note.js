@@ -29,7 +29,7 @@ export default class Note {
     const tone = this.midiNumber % 12;
     const toneLetter = toneMap.get(tone);
     if (toneLetter === undefined) {
-      throw `Uh oh tone == ${tone}`;
+      throw `Uh oh tone == ${tone}`; // TODO test this
     }
     // MIDI numbering starts from -1 octave
     const octave = Math.floor(this.midiNumber / 12) - 1;
