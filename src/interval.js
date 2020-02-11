@@ -1,6 +1,6 @@
 import Note from "./note.js";
 
-/** Lazily loaded cache of cache singletons */
+/** Lazily loaded cache of interval singletons */
 const intervalCache = new Map();
 
 /**
