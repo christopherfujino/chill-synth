@@ -33,6 +33,7 @@ export default class Chord {
     return this.hashValue;
   }
 
+  /** Return a random note from this Chord */
   takeRandom() {
     return takeRandom(this.notes);
   }
@@ -42,6 +43,7 @@ export default class Chord {
     return notes.reduce((acc, cur) => `${acc}${cur.toString()}`);
   }
 
+  /** Lazily load a Chord with the given midiNumbers */
   static fromCodes(numbers) {
     return Chord.create(numbers.map((num) => Note.create(num)));
   }
