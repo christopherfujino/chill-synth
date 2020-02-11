@@ -23,4 +23,10 @@ describe("Chord", () => {
     expect(firstChord).toBeInstanceOf(Chord);
     expect(firstChord).toBe(secondChord);
   });
+
+  it(".hashNotes() returns expected output", () => {
+    const notes = [new Note(24), new Note(27), new Note(31)];
+    const hash = Chord.hashNotes(notes);
+    expect(hash).toBe("C1D#1G1");
+  });
 });

@@ -1,5 +1,6 @@
 import Note from "./note.js";
 
+/** Cache of chord singletons */
 const chordCache = new Map();
 
 export default class Chord {
