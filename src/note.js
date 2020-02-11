@@ -13,13 +13,26 @@ const toneMap = new Map([
   [11, "B"],
 ]);
 
+// Cache note singletons
+const noteCache = new Map();
+
 export default class Note {
-  /**Takes as an input a MIDI number (e.g. 32)*/
+  /**Should not be invoked directly, instead use .create()*/
   constructor(midiNumber) {
     if (midiNumber === undefined) {
       throw "You must provide a midiNumber when constructing a Note";
     }
     this.midiNumber = midiNumber;
+  }
+
+  /** Will return cached instance first if it exists */
+  static create(midiNumber) {
+    if (noteCache.has(midiNumber)) {
+      return noteCache.get(midiNumber);
+    }
+    const note = new Note(midiNumber);
+    noteCache.set(midiNumber, note);
+    return note;
   }
 
   // TODO: provide alternate constructors
@@ -28,9 +41,6 @@ export default class Note {
   toString() {
     const tone = this.midiNumber % 12;
     const toneLetter = toneMap.get(tone);
-    if (toneLetter === undefined) {
-      throw `Uh oh tone == ${tone}`; // TODO test this
-    }
     // MIDI numbering starts from -1 octave
     const octave = Math.floor(this.midiNumber / 12) - 1;
     return `${toneLetter}${octave}`;

@@ -10,6 +10,6 @@ export default class Interval {
 
   /** Given a sourceNote, returns a new Note this interval away*/
   getNote(sourceNote) {
-    return new Note(sourceNote.midiNumber + this.distance);
+    return Note.create(sourceNote.midiNumber + this.distance);
   }
 }

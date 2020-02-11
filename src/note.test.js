@@ -18,14 +18,21 @@ describe("Note", () => {
     expect(toString).toBe("C-1");
   });
 
-  it(".toString() does not throw for midiNumbers 0-127 and is always unique", () => {
+  it(".toString() is always unique for input 0-127", () => {
     const set = new Set();
     for (let i = 0; i < 128; i++) {
       const note = new Note(i);
       const toString = note.toString();
+      expect(typeof toString).toBe("string");
       expect(set.has(toString)).toBe(false);
       set.add(toString);
-      expect(typeof toString).toBe("string");
     }
+  });
+
+  it(".create() will return the same instance if invoked twice with the same input", () => {
+    const midiNumber = 13;
+    const firstNote = Note.create(midiNumber);
+    const secondNote = Note.create(midiNumber);
+    expect(firstNote).toBe(secondNote);
   });
 });
