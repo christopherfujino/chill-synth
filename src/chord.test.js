@@ -15,4 +15,12 @@ describe("Chord", () => {
     const chord = Chord.fromCodes([0, 3, 7]);
     expect(chord).toBeInstanceOf(Chord);
   });
+
+  it(".create() returns the same instance if invoked twice with same input", () => {
+    const notes = [new Note(0), new Note(3), new Note(7)];
+    const firstChord = Chord.create(notes);
+    const secondChord = Chord.create(notes);
+    expect(firstChord).toBeInstanceOf(Chord);
+    expect(firstChord).toBe(secondChord);
+  });
 });

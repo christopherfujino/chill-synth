@@ -35,8 +35,6 @@ export default class Note {
     return note;
   }
 
-  // TODO: provide alternate constructors
-
   // https://tonejs.github.io/docs/13.8.25/Type#frequency
   toString() {
     const tone = this.midiNumber % 12;

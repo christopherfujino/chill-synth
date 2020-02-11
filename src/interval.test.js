@@ -19,4 +19,11 @@ describe("interval", () => {
     expect(eFlatNote).toBeInstanceOf(Note);
     expect(eFlatNote.midiNumber).toBe(3);
   });
+
+  it(".create() returns the same instance if invoked twice with the same input", () => {
+    const distance = 3;
+    const firstInterval = Interval.create(distance);
+    const secondInterval = Interval.create(distance);
+    expect(firstInterval).toBe(secondInterval);
+  });
 });
