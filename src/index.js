@@ -1,10 +1,12 @@
 import * as Tone from "tone";
-import Scale from "./scale.js";
+import Chord from "./chord.js";
+import Note from "./note.js";
 
 console.log("About to play a note...");
 
 const playButton = document.querySelector("#play-button");
-const scale = new Scale();
+const rootNote = Note.create(48); // C3
+const chord = Chord.minorChord(rootNote);
 
 const synthOptions = {
   "oscillator": {
@@ -20,7 +22,7 @@ const synthOptions = {
 const synth = new Tone.Synth(synthOptions).toMaster();
 
 const loop = new Tone.Loop((time) => {
-  const note = scale.getNote();
+  const note = chord.takeRandom();
   console.log(note.toString());
   synth.triggerAttackRelease(note.toString(), "8n", time);
 }, "4n");

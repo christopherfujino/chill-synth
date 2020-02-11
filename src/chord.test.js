@@ -50,4 +50,11 @@ describe("Chord", () => {
     const hash2 = chord.hashString;
     expect(hash1).toBe(hash2);
   });
+
+  it(".takeRandom() returns a note within the chord", () => {
+    const notes = [new Note(24), new Note(27), new Note(31)];
+    const chord = new Chord(notes);
+    const takenNote = chord.takeRandom();
+    expect(notes.includes(takenNote)).toBe(true);
+  });
 });

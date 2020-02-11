@@ -1,3 +1,4 @@
+import { takeRandom } from "./utils.js";
 import Interval from "./interval.js";
 import Note from "./note.js";
 
@@ -9,6 +10,7 @@ export default class Chord {
     if (notes === undefined) {
       throw "An array of notes must be provided";
     }
+    /** Array of notes in the chord */
     this.notes = notes;
     /** Lazily loaded hash string uniquely identifying this chord */
     this.hashValue = undefined;
@@ -29,6 +31,10 @@ export default class Chord {
       this.hashValue = Chord.hashNotes(this.notes);
     }
     return this.hashValue;
+  }
+
+  takeRandom() {
+    return takeRandom(this.notes);
   }
 
   /** Concatenate the .toString of each note in the provided Array */
