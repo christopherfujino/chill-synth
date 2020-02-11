@@ -27,6 +27,7 @@ export default class Interval {
     this.distance = distance;
   }
 
+  /** Lazily load interval from cache */
   static create(distance) {
     if (intervalCache.has(distance)) {
       return intervalCache.get(distance);
