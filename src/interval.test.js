@@ -2,6 +2,10 @@ import Interval from "./interval.js";
 import Note from "./note.js";
 
 describe("interval", () => {
+  afterEach(() => {
+    Interval.resetCache();
+  });
+
   it("throws if no distance provided to constructor", () => {
     expect(() => new Interval()).toThrow();
   });
@@ -25,5 +29,21 @@ describe("interval", () => {
     const firstInterval = Interval.create(distance);
     const secondInterval = Interval.create(distance);
     expect(firstInterval).toBe(secondInterval);
+  });
+
+  it("verify all static getters return interval of correct distance", () => {
+    expect(Interval.unison.distance).toBe(0);
+    expect(Interval.minorSecond.distance).toBe(1);
+    expect(Interval.majorSecond.distance).toBe(2);
+    expect(Interval.minorThird.distance).toBe(3);
+    expect(Interval.majorThird.distance).toBe(4);
+    expect(Interval.perfectFourth.distance).toBe(5);
+    expect(Interval.tritone.distance).toBe(6);
+    expect(Interval.perfectFifth.distance).toBe(7);
+    expect(Interval.minorSixth.distance).toBe(8);
+    expect(Interval.majorSixth.distance).toBe(9);
+    expect(Interval.minorSeventh.distance).toBe(10);
+    expect(Interval.majorSeventh.distance).toBe(11);
+    expect(Interval.octave.distance).toBe(12);
   });
 });

@@ -43,4 +43,9 @@ export default class Note {
     const octave = Math.floor(this.midiNumber / 12) - 1;
     return `${toneLetter}${octave}`;
   }
+
+  /** For testing */
+  static resetCache() {
+    noteCache.clear();
+  }
 }

@@ -1,3 +1,4 @@
+import Interval from "./interval.js";
 import Note from "./note.js";
 
 /** Cache of chord singletons */
@@ -9,6 +10,8 @@ export default class Chord {
       throw "An array of notes must be provided";
     }
     this.notes = notes;
+    /** Lazily loaded hash string uniquely identifying this chord */
+    this.hashValue = undefined;
   }
 
   static create(notes) {
@@ -21,11 +24,36 @@ export default class Chord {
     return chord;
   }
 
+  get hashString() {
+    if (this.hashValue === undefined) {
+      this.hashValue = Chord.hashNotes(this.notes);
+    }
+    return this.hashValue;
+  }
+
+  /** Concatenate the .toString of each note in the provided Array */
   static hashNotes(notes) {
     return notes.reduce((acc, cur) => `${acc}${cur.toString()}`);
   }
 
   static fromCodes(numbers) {
     return Chord.create(numbers.map((num) => Note.create(num)));
+  }
+
+  static majorChord(rootNote) {
+    const third = Interval.majorThird.getNote(rootNote);
+    const fifth = Interval.perfectFifth.getNote(rootNote);
+    return Chord.create([rootNote, third, fifth]);
+  }
+
+  static minorChord(rootNote) {
+    const third = Interval.minorThird.getNote(rootNote);
+    const fifth = Interval.perfectFifth.getNote(rootNote);
+    return Chord.create([rootNote, third, fifth]);
+  }
+
+  /** For testing */
+  static resetCache() {
+    chordCache.clear();
   }
 }

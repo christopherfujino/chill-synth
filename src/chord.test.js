@@ -2,6 +2,10 @@ import Chord from "./chord.js";
 import Note from "./note.js";
 
 describe("Chord", () => {
+  afterEach(() => {
+    Chord.resetCache();
+  });
+
   it("throws an exception if constructor is invoked without any arguments", () => {
     expect(() => new Chord()).toThrow();
   });
@@ -24,9 +28,26 @@ describe("Chord", () => {
     expect(firstChord).toBe(secondChord);
   });
 
-  it(".hashNotes() returns expected output", () => {
+  it("static .hashNotes() returns expected output", () => {
     const notes = [new Note(24), new Note(27), new Note(31)];
     const hash = Chord.hashNotes(notes);
     expect(hash).toBe("C1D#1G1");
+  });
+
+  it("getter .hashString returns expected output", () => {
+    const chord = Chord.majorChord(new Note(24));
+    expect(chord.hashString).toBe("C1E1G1");
+  });
+
+  it(".minorChord() returns chords with correct hashString", () => {
+    const chord = Chord.minorChord(new Note(24));
+    expect(chord.hashString).toBe("C1D#1G1");
+  });
+
+  it("lazy loaded .hashString getter returns the same value if invoked twice", () => {
+    const chord = new Chord([new Note(24), new Note(27), new Note(31)]);
+    const hash1 = chord.hashString;
+    const hash2 = chord.hashString;
+    expect(hash1).toBe(hash2);
   });
 });

@@ -1,6 +1,10 @@
 import Note from "./note.js";
 
 describe("Note", () => {
+  afterEach(() => {
+    Note.resetCache();
+  });
+
   it("throws an exception when no constructor arg provided", () => {
     expect(() => new Note()).toThrow();
   });

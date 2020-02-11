@@ -2,6 +2,10 @@ import Note from "./note.js";
 import Scale from "./scale.js";
 
 describe("Scale", () => {
+  afterEach(() => {
+    Note.resetCache();
+  });
+
   it("constructs successfully", () => {
     const scale = new Scale();
     expect(scale).toBeInstanceOf(Scale);
