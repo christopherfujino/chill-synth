@@ -1,6 +1,10 @@
 import Note from "./note.js";
 
-/*
+/** Lazily loaded cache of cache singletons */
+const intervalCache = new Map();
+
+/**
+ * 0 -> unison
  * 1 -> minor second
  * 2 -> major second
  * 3 -> minor third
@@ -12,11 +16,8 @@ import Note from "./note.js";
  * 9 -> major sixth
  * 10 -> minor seventh
  * 11 -> major seventh
+ * 12 -> octave
  */
-
-/** Lazily loaded cache of cache singletons */
-const intervalCache = new Map();
-
 export default class Interval {
   /** Should not be invoked directly -- use .create() */
   constructor(distance) {
