@@ -13,6 +13,8 @@ import Note from "./note.js";
  * 10 -> minor seventh
  * 11 -> major seventh
  */
+
+/** Lazily loaded cache of cache singletons */
 const intervalCache = new Map();
 
 export default class Interval {
