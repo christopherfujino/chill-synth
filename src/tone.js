@@ -23,8 +23,8 @@ export default class Tone {
    * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale.
    */
   constructor(toneNumber) {
-    if (toneNumber < 0 || toneNumber > 11) {
-      throw `${toneNumber} is not a valid toneNumber!`;
+    if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > 11) {
+      throw `${toneNumber} is not a valid toneNumber (0-11)!`;
     }
     /** Numeric mapping of notes in chromatic scale; C == 0. */
     this.toneNumber = toneNumber;
@@ -51,7 +51,7 @@ export default class Tone {
    * @returns {string} - The string representing this tone.
    */
   toString() {
-    return toneMap.get(this.toneNumber);
+    return toneMap.get(this.toneNumber);//TODO test
   }
 
   /** For testing. */
