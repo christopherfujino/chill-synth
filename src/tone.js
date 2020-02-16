@@ -36,7 +36,7 @@ export default class Tone {
    * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale.
    * @returns {Tone} - A lazily-loaded Tone.
    */
-  create(toneNumber) {
+  static create(toneNumber) {
     if (toneCache.has(toneNumber)) {
       return toneCache.get(toneNumber);
     }
