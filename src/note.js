@@ -1,3 +1,5 @@
+import Tone from "./tone.js";
+
 const toneMap = new Map([
   [0, "C"],
   [1, "C#"],
@@ -17,15 +19,25 @@ const toneMap = new Map([
 const noteCache = new Map();
 
 export default class Note {
-  /**Should not be invoked directly, instead use .create()*/
+  /**
+   * Should not be invoked directly, instead use .create().
+   *
+   * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127.
+   */
   constructor(midiNumber) {
     if (midiNumber === undefined) {
       throw "You must provide a midiNumber when constructing a Note";
     }
     this.midiNumber = midiNumber;
+    this.tone = Tone.create(midiNumber % 12);
   }
 
-  /** Will return cached instance first if it exists */
+  /**
+   * Will return cached instance first if it exists.
+   *
+   * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127.
+   * @returns {Note} - Lazily-loaded Note.
+   */
   static create(midiNumber) {
     if (noteCache.has(midiNumber)) {
       return noteCache.get(midiNumber);
@@ -44,7 +56,7 @@ export default class Note {
     return `${toneLetter}${octave}`;
   }
 
-  /** For testing */
+  /** For testing. */
   static resetCache() {
     noteCache.clear();
   }
