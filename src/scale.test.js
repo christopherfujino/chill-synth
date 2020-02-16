@@ -11,9 +11,9 @@ describe("Scale", () => {
     expect(scale).toBeInstanceOf(Scale);
   });
 
-  it("scale.scale should be an array of strings", () => {
+  it("scale.notes should be an array of strings", () => {
     const scale = new Scale();
-    expect(Array.isArray(scale.scale)).toBe(true);
+    expect(Array.isArray(scale.notes)).toBe(true);
   });
 
   it(".getNote() returns a valid WebAudio API compative note string", () => {
