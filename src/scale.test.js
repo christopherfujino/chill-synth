@@ -22,4 +22,6 @@ describe("Scale", () => {
     expect(note).toBeInstanceOf(Note);
     expect(note.toString().length).toBeGreaterThanOrEqual(2);
   });
+
+  it("intentionally failing test", () => expect(1).toBe(2));
 });
