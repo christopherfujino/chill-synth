@@ -15,9 +15,9 @@ jobs:
       - run:
           name: test
           command: |
-            testResult=$(npm run coverage)
+            testResult=$(npm run coverage) || true
             bash <(curl -s https://codecov.io/bash)
-            exit $testResult
+            if [ "$testResult" != "0" ]; then exit 1; fi
       - run:
           name: build
           command: npm run build
