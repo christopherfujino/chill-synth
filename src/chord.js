@@ -5,7 +5,13 @@ import Note from "./note.js";
 /** Cache of chord singletons. */
 const chordCache = new Map();
 
+/** A chord made up of multiple Notes. */
 export default class Chord {
+  /**
+   * Create a new Chord from an Array of Notes.
+   *
+   * @param {Note[]} notes - Notes to compose Chord with.
+   */
   constructor(notes) {
     if (notes === undefined) {
       throw "An array of notes must be provided";
@@ -16,6 +22,12 @@ export default class Chord {
     this.hashValue = undefined;
   }
 
+  /**
+   * Lazily-load a Chord from the given Notes.
+   *
+   * @param {Note[]} notes - Notes to compose Chord with.
+   * @returns {Chord} - Lazily-loaded Chord.
+   */
   static create(notes) {
     const key = Chord.hashNotes(notes);
     if (chordCache.has(key)) {
@@ -26,11 +38,13 @@ export default class Chord {
     return chord;
   }
 
+  /**
+   * Uniquely-identifying string of all Notes in this Chord.
+   *
+   * @returns {string} - Hash string.
+   */
   get hashString() {
-    if (this.hashValue === undefined) {
-      this.hashValue = Chord.hashNotes(this.notes);
-    }
-    return this.hashValue;
+    return Chord.hashNotes(this.notes);
   }
 
   /**

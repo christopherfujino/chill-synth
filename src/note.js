@@ -18,6 +18,7 @@ const toneMap = new Map([
 // Cache note singletons
 const noteCache = new Map();
 
+/** A precise pitch. */
 export default class Note {
   /**
    * Should not be invoked directly, instead use .create().
@@ -47,7 +48,13 @@ export default class Note {
     return note;
   }
 
-  // https://tonejs.github.io/docs/13.8.25/Type#frequency
+  /**
+   * String corresponding to Note, of the form C#4.
+   *
+   * See https://tonejs.github.io/docs/13.8.25/Type#frequency for more info.
+   *
+   * @returns {string} - String representation of this Note.
+   */
   toString() {
     const tone = this.midiNumber % 12;
     const toneLetter = toneMap.get(tone);
