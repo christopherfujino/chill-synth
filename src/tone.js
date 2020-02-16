@@ -51,7 +51,7 @@ export default class Tone {
    * @returns {string} - The string representing this tone.
    */
   toString() {
-    return toneMap.get(this.toneNumber);//TODO test
+    return toneMap.get(this.toneNumber);
   }
 
   /** For testing. */
