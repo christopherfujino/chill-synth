@@ -15,8 +15,9 @@ jobs:
       - run:
           name: test
           command: |
-            npm run coverage || true # upload even on fail
+            testResult=$(npm run coverage)
             bash <(curl -s https://codecov.io/bash)
+            exit $testResult
       - run:
           name: build
           command: npm run build
