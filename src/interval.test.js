@@ -15,7 +15,7 @@ describe("interval", () => {
     expect(interval).toBeInstanceOf(Interval);
   });
 
-  it(".getNote() returns a new Note distance semitones away", () => {
+  it(".getNote() returns a new Note [distance] semitones away", () => {
     const minorThird = new Interval(3);
     const cNote = new Note(0);
     expect(cNote.midiNumber).toBe(0);
@@ -33,7 +33,9 @@ describe("interval", () => {
 
   it("verify all static getters return interval of correct distance", () => {
     expect(Interval.unison.distance).toBe(0);
+    expect(Interval.semitone.distance).toBe(1);
     expect(Interval.minorSecond.distance).toBe(1);
+    expect(Interval.wholeTone.distance).toBe(2);
     expect(Interval.majorSecond.distance).toBe(2);
     expect(Interval.minorThird.distance).toBe(3);
     expect(Interval.majorThird.distance).toBe(4);

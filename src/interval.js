@@ -31,8 +31,16 @@ export default class Interval {
     return Interval.create(0);
   }
 
+  static get semitone() {
+    return Interval.create(1);
+  }
+
   static get minorSecond() {
     return Interval.create(1);
+  }
+
+  static get wholeTone() {
+    return Interval.create(2);
   }
 
   static get majorSecond() {
