@@ -38,22 +38,43 @@ export default class Chord {
     return takeRandom(this.notes);
   }
 
-  /** Concatenate the .toString of each note in the provided Array */
+  /**
+    * Concatenate the .toString of each note in the provided Array.
+    *
+    * This is static so that - given a list of notes, it can be called to
+    * determine whether the chord is already cached.
+    * @param {Note[]} notes
+    * @returns {String} hash of the input notes
+    */
   static hashNotes(notes) {
     return notes.reduce((acc, cur) => `${acc}${cur.toString()}`);
   }
 
-  /** Lazily load a Chord with the given midiNumbers */
+  /**
+    * Lazily load a Chord with the given midiNumbers
+    * @param {number[]} numbers
+    * @returns {Chord} a lazily-loaded chord
+    */
   static fromCodes(numbers) {
     return Chord.create(numbers.map((num) => Note.create(num)));
   }
 
+  /**
+   * Return a major chord based on a root note
+   * @param {Note} rootNote
+   * @returns {Chord} major chord
+   */
   static majorChord(rootNote) {
     const third = Interval.majorThird.getNote(rootNote);
     const fifth = Interval.perfectFifth.getNote(rootNote);
     return Chord.create([rootNote, third, fifth]);
   }
 
+  /**
+   * Return a minor chord based on a root note
+   * @param {Note} rootNote
+   * @returns {Chord} minor chord
+   */
   static minorChord(rootNote) {
     const third = Interval.minorThird.getNote(rootNote);
     const fifth = Interval.perfectFifth.getNote(rootNote);
