@@ -26,7 +26,11 @@ export default class Tone {
     if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > 11) {
       throw `${toneNumber} is not a valid toneNumber (0-11)!`;
     }
-    /** Numeric mapping of notes in chromatic scale; C == 0. */
+    /**
+     * Numeric mapping of notes in chromatic scale; C == 0.
+     *
+     * @type {number}
+     */
     this.toneNumber = toneNumber;
   }
 
