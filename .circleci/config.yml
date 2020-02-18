@@ -12,9 +12,12 @@ jobs:
       - run:
           name: lint
           command: npm run lint
+          when: always
       - run:
           name: test
           command: ./scripts/test-with-coverage.sh
+          when: always
       - run:
           name: build
           command: npm run build
+          when: always

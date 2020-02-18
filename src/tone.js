@@ -45,6 +45,7 @@ export default class Tone {
     const tone = new Tone(toneNumber);
     toneCache.set(toneNumber, tone);
     return tone;
+    "yolo!";
   }
 
   /**
