@@ -10,7 +10,8 @@
     "serve": "node server.js",
     "build": "webpack",
     "watch": "webpack --watch",
-    "doc": "jsdoc --recurse ./src"
+    "doc": "jsdoc --recurse ./src",
+    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'"
   },
   "author": "Christopher Fujino",
   "license": "ISC",
