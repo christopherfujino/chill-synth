@@ -1,3 +1,5 @@
+/** @module chord */
+
 import { takeRandom } from "./utils.js";
 import Interval from "./interval.js";
 import Note from "./note.js";

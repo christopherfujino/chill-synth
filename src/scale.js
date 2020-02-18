@@ -1,3 +1,5 @@
+/** @module scale */
+
 import { takeRandom } from "./utils.js";
 import Note from "./note.js";
 

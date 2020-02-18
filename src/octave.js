@@ -1,3 +1,5 @@
+/** @module octave */
+
 /** Cached octaves. */
 const octaveCache = new Map();
 
@@ -32,5 +34,10 @@ export default class Octave {
     const octave = new Octave(octaveNumber);
     octaveCache.set(octaveNumber, octave);
     return octave;
+  }
+
+  /** For testing. */
+  static resetCache() {
+    octaveCache.clear();
   }
 }

@@ -1,4 +1,12 @@
 node_modules
 *.mp3
+
+# eslint build
 dist
+
+# jsdoc build
+out
+
+# jest coverage report
 coverage
+

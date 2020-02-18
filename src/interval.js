@@ -1,3 +1,5 @@
+/** @module interval */
+
 import Note from "./note.js";
 
 /** Lazily-loaded cache of interval singletons. */

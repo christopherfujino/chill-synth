@@ -1,3 +1,5 @@
+/** @module tone */
+
 const toneMap = new Map([
   [0, "C"],
   [1, "C#"],
@@ -17,28 +19,24 @@ const toneCache = new Map();
 
 /** One of the 12 tones. */
 export default class Tone {
-  /**
-   * Create a new Tone. Prefer Tone.create(), as it lazily loads.
+  /** Create a new Tone. Prefer Tone.create(), as it lazily loads.
    *
-   * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale.
-   */
+   * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale. */
   constructor(toneNumber) {
     if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > 11) {
       throw `${toneNumber} is not a valid toneNumber (0-11)!`;
     }
-    /**
-     * Numeric mapping of notes in chromatic scale; C == 0.
+    /** Numeric mapping of notes in chromatic scale; C == 0.
      *
-     * @type {number}
-     */
+     * @type {number} */
     this.toneNumber = toneNumber;
   }
 
   /**
    * Will return cached instance first if it exists.
    *
-   * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale.
-   * @returns {Tone} - A lazily-loaded Tone.
+   * @param {number} toneNumber A number between 0 and 11, mapping to the chromatic scale.
+   * @returns {Tone} A lazily-loaded Tone.
    */
   static create(toneNumber) {
     if (toneCache.has(toneNumber)) {
@@ -52,7 +50,7 @@ export default class Tone {
   /**
    * Get name for this tone.
    *
-   * @returns {string} - The string representing this tone.
+   * @returns {string} The string representing this tone.
    */
   toString() {
     return toneMap.get(this.toneNumber);
