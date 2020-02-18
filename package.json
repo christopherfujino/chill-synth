@@ -11,7 +11,8 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "doc": "jsdoc --recurse ./src",
-    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'"
+    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'",
+    "update-packages": "npm update"
   },
   "author": "Christopher Fujino",
   "license": "ISC",
@@ -27,7 +28,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^25.1.0",
     "jsdoc": "^3.6.3",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
   }
 }
