@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage=true",
-    "lint": "eslint ./src --debug",
+    "lint": "eslint ./src",
     "serve": "node server.js",
     "build": "webpack",
     "watch": "webpack --watch",
