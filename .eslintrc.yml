@@ -41,7 +41,7 @@ rules:
   jsdoc/require-description: 1
   jsdoc/require-description-complete-sentence: 1
   jsdoc/require-example: 0
-  jsdoc/require-hyphen-before-param-description: 1
+  jsdoc/require-hyphen-before-param-description: 0
   jsdoc/require-jsdoc: # Recommended
     - error
     - require:

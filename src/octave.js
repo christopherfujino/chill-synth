@@ -5,7 +5,7 @@ const octaveCache = new Map();
 export default class Octave {
   /** Create a new Octave.
    *
-   * @param {number} octaveNumber - A number between -1 and 10. */
+   * @param {number} octaveNumber A number between -1 and 10. */
   constructor (octaveNumber) {
     if (typeof octaveNumber !== "number" || octaveNumber < -1 || octaveNumber > 10) {
       throw `octaveNumber ${octaveNumber} is not within legal bounds!`;
@@ -16,18 +16,15 @@ export default class Octave {
 
   /** Return string representing this octave number.
    *
-   * @returns {string} - String representing this octave.
-   */
+   * @returns {string} String representing this octave. */
   toString() {
     return this.octaveNumber.toString();
   }
 
-  /**
-   * Lazily-load an Octave.
+  /** Lazily-load an Octave.
    *
-   * @param {number} octaveNumber - A number from -1 to 10.
-   * @returns {Octave} - A lazily-loaded Octave.
-   */
+   * @param {number} octaveNumber A number from -1 to 10.
+   * @returns {Octave} A lazily-loaded Octave. */
   static create(octaveNumber) {
     if (octaveCache.has(octaveNumber)) {
       return octaveCache.get(octaveNumber);
