@@ -1,5 +1,7 @@
 #!/bin/bash
 
+npm outdated # show outdated dependencies
+
 script_dir=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 filename="$script_dir/../package-lock.json"
 
