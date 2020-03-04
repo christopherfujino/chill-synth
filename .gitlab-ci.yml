@@ -1,0 +1,21 @@
+# https://hub.docker.com/r/circleci/node
+image: "circleci/node:13.8.0"
+
+before_script:
+  - npm ci
+
+lint:
+  script:
+    - npm run lint
+
+js_test:
+  script:
+    - ./scripts/test-with-coverage.sh
+
+build:
+  script:
+    - npm run build
+
+fresh:
+  script:
+    - ./scripts/check-dependencies.sh
