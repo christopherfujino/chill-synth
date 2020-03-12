@@ -1,6 +1,6 @@
 /** @module chord */
 
-import { takeRandom } from "./utils.js";
+import { takeRandom } from "../utils.js";
 import Interval from "./interval.js";
 import Tone from "./tone.js";
 

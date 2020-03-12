@@ -1,6 +1,6 @@
 /** @module scale */
 
-import { takeRandom } from "./utils.js";
+import { takeRandom } from "../utils.js";
 import Tone from "./tone.js";
 
 /** A sequence of seven Notes. */

@@ -28,6 +28,24 @@ export default class Note {
     this.octave = Octave.create(Math.floor(this.midiNumber / 12) - 1);
   }
 
+  /** String corresponding to Note, of the form C#4.
+   *
+   * See https://tonejs.github.io/docs/13.8.25/Type#frequency for more info.
+   *
+   * @returns {string} - String representation of this Note. */
+  toString() {
+    return `${this.tone.toString()}${this.octave.toString()}`;
+  }
+
+  /** Create a new Note given a tone and an octave.
+   *
+   * @param {Tone} tone Input tone.
+   * @param {Octave} octave Input octave.
+   * @returns {Note} Lazily-loaded Note. */
+  static fromTone(tone, octave) {
+    return Note.create(tone.toneNumber + octave.noteOffset());
+  }
+
   /** Will return cached instance first if it exists.
    *
    * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127.
@@ -39,15 +57,6 @@ export default class Note {
     const note = new Note(midiNumber);
     noteCache.set(midiNumber, note);
     return note;
-  }
-
-  /** String corresponding to Note, of the form C#4.
-   *
-   * See https://tonejs.github.io/docs/13.8.25/Type#frequency for more info.
-   *
-   * @returns {string} - String representation of this Note. */
-  toString() {
-    return `${this.tone.toString()}${this.octave.toString()}`;
   }
 
   /** For testing. */
