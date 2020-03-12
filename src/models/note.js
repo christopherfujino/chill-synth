@@ -59,7 +59,7 @@ export default class Note {
     return note;
   }
 
-  /** For testing. */
+  /** For testing. Also clears Tone and Octave caches. */
   static resetCache() {
     noteCache.clear();
     Tone.resetCache(); // Since we lazily-load Tones in the constructor

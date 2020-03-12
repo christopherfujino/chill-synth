@@ -1,4 +1,6 @@
 import Note from "./note.js";
+import Octave from "./octave.js";
+import Tone from "./tone.js";
 
 describe("Note", () => {
   afterEach(() => {
@@ -38,5 +40,13 @@ describe("Note", () => {
     const firstNote = Note.create(midiNumber);
     const secondNote = Note.create(midiNumber);
     expect(firstNote).toBe(secondNote);
+  });
+
+  it(".fromTone()", () => {
+    const tone = new Tone(4);
+    const octave = new Octave(3);
+    const note = Note.fromTone(tone, octave);
+    expect(note).toBeInstanceOf(Note);
+    expect(note.toString()).toBe("E3");
   });
 });
