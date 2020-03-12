@@ -1,6 +1,7 @@
 /** @module interval */
 
 import Note from "./note.js";
+import Tone from "./tone.js";
 
 /** Lazily-loaded cache of interval singletons. */
 const intervalCache = new Map();
@@ -44,6 +45,16 @@ export default class Interval {
    */
   getNote(sourceNote) {
     return Note.create(sourceNote.midiNumber + this.distance);
+  }
+
+  /**
+   * Given a sourceTone, returns a new Tone this interval away.
+   *
+   * @param {Tone} sourceTone - The Tone to start from.
+   * @returns {Tone} - The new (lazily-loaded) Tone.
+   */
+  getTone(sourceTone) {
+    return Tone.create(sourceTone.toneNumber + this.distance);
   }
 
   /**

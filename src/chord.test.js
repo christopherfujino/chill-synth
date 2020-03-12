@@ -1,5 +1,5 @@
 import Chord from "./chord.js";
-import Note from "./note.js";
+import Tone from "./tone.js";
 
 describe("Chord", () => {
   afterEach(() => {
@@ -10,51 +10,46 @@ describe("Chord", () => {
     expect(() => new Chord()).toThrow();
   });
 
-  it("constructs successfully if passed an Array of notes", () => {
-    const chord = new Chord([new Note(0), new Note(3), new Note(7)]);
-    expect(chord).toBeInstanceOf(Chord);
-  });
-
-  it(".fromCodes() constructs a chord if passed in arrayOfNumbers", () => {
-    const chord = Chord.fromCodes([0, 3, 7]);
+  it("constructs successfully if passed an Array of tones", () => {
+    const chord = new Chord([new Tone(0), new Tone(3), new Tone(7)]);
     expect(chord).toBeInstanceOf(Chord);
   });
 
   it(".create() returns the same instance if invoked twice with same input", () => {
-    const notes = [new Note(0), new Note(3), new Note(7)];
-    const firstChord = Chord.create(notes);
-    const secondChord = Chord.create(notes);
+    const tones = [new Tone(0), new Tone(3), new Tone(7)];
+    const firstChord = Chord.create(tones);
+    const secondChord = Chord.create(tones);
     expect(firstChord).toBeInstanceOf(Chord);
     expect(firstChord).toBe(secondChord);
   });
 
-  it("static .hashNotes() returns expected output", () => {
-    const notes = [new Note(24), new Note(27), new Note(31)];
-    const hash = Chord.hashNotes(notes);
-    expect(hash).toBe("C1D#1G1");
+  it("static .hashTones() returns expected output", () => {
+    const tones = [new Tone(0), new Tone(3), new Tone(7)];
+    const hash = Chord.hashTones(tones);
+    expect(hash).toBe("CD#G");
   });
 
   it("getter .hashString returns expected output", () => {
-    const chord = Chord.majorChord(new Note(24));
-    expect(chord.hashString).toBe("C1E1G1");
+    const chord = Chord.majorChord(new Tone(2));
+    expect(chord.hashString).toBe("DF#A");
   });
 
   it(".minorChord() returns chords with correct hashString", () => {
-    const chord = Chord.minorChord(new Note(24));
-    expect(chord.hashString).toBe("C1D#1G1");
+    const chord = Chord.minorChord(new Tone(3));
+    expect(chord.hashString).toBe("D#F#A#");
   });
 
   it("lazy loaded .hashString getter returns the same value if invoked twice", () => {
-    const chord = new Chord([new Note(24), new Note(27), new Note(31)]);
+    const chord = new Chord([new Tone(0), new Tone(3), new Tone(7)]);
     const hash1 = chord.hashString;
     const hash2 = chord.hashString;
     expect(hash1).toBe(hash2);
   });
 
-  it(".takeRandom() returns a note within the chord", () => {
-    const notes = [new Note(24), new Note(27), new Note(31)];
-    const chord = new Chord(notes);
-    const takenNote = chord.takeRandom();
-    expect(notes.includes(takenNote)).toBe(true);
+  it(".takeRandom() returns a tone within the chord", () => {
+    const tones = [new Tone(0), new Tone(3), new Tone(7)];
+    const chord = new Chord(tones);
+    const takenTone = chord.takeRandom();
+    expect(tones.includes(takenTone)).toBe(true);
   });
 });

@@ -2,93 +2,85 @@
 
 import { takeRandom } from "./utils.js";
 import Interval from "./interval.js";
-import Note from "./note.js";
+import Tone from "./tone.js";
 
 /** Cache of chord singletons. */
 const chordCache = new Map();
 
-/** A chord made up of multiple Notes. */
+/** A chord made up of multiple Tones. */
 export default class Chord {
-  /** Create a new Chord from an Array of Notes.
+  /** Create a new Chord from an Array of Tones.
    *
-   * @param {Note[]} notes Notes to compose Chord with. */
-  constructor(notes) {
-    if (notes === undefined) {
-      throw "An array of notes must be provided";
+   * @param {Tone[]} tones Tones to compose Chord with. */
+  constructor(tones) {
+    if (tones === undefined) {
+      throw "An array of tones must be provided";
     }
-    /** Array of notes in the chord.
+    /** Array of tones in the chord.
      *
-     * @type {Note[]} */
-    this.notes = notes;
+     * @type {Tone[]} */
+    this.tones = tones;
     /** Lazily loaded hash string uniquely identifying this chord. */
     this.hashValue = undefined;
   }
 
-  /** Lazily-load a Chord from the given Notes.
+  /** Lazily-load a Chord from the given Tones.
    *
-   * @param {Note[]} notes Notes to compose Chord with.
+   * @param {Tone[]} tones Tones to compose Chord with.
    * @returns {Chord} Lazily-loaded Chord. */
-  static create(notes) {
-    const key = Chord.hashNotes(notes);
+  static create(tones) {
+    const key = Chord.hashTones(tones);
     if (chordCache.has(key)) {
       return chordCache.get(key);
     }
-    const chord = new Chord(notes);
+    const chord = new Chord(tones);
     chordCache.set(key, chord);
     return chord;
   }
 
-  /** Uniquely-identifying string of all Notes in this Chord.
+  /** Uniquely-identifying string of all Tones in this Chord.
    *
    * @returns {string} Hash string. */
   get hashString() {
-    return Chord.hashNotes(this.notes);
+    return Chord.hashTones(this.tones);
   }
 
-  /** Return a random note from this Chord.
+  /** Return a random tone from this Chord.
    *
-   * @returns {Note} A random note. */
+   * @returns {Tone} A random tone. */
   takeRandom() {
-    return takeRandom(this.notes);
+    return takeRandom(this.tones);
   }
 
-  /** Concatenate the .toString of each note in the provided Array.
+  /** Concatenate the .toString of each tone in the provided Array.
    *
-   * This is static so that given a list of notes, it can be called to
+   * This is static so that given a list of tones, it can be called to
    * determine whether the chord is already cached.
    *
-   * @param {Note[]} notes The notes you wish to get a unique identifier for.
-   * @returns {string} A hash string of the input notes. */
-  static hashNotes(notes) {
-    return notes.reduce((acc, cur) => `${acc}${cur.toString()}`);
+   * @param {Tone[]} tones The tones you wish to get a unique identifier for.
+   * @returns {string} A hash string of the input tones. */
+  static hashTones(tones) {
+    return tones.reduce((acc, cur) => `${acc}${cur.toString()}`);
   }
 
-  /** Lazily load a Chord with the given midiNumbers.
+  /** Return a major chord based on a root tone.
    *
-   * @param {number[]} numbers MIDI numbers to corresponding to the notes in the chord.
-   * @returns {Chord} A lazily-loaded chord. */
-  static fromCodes(numbers) {
-    return Chord.create(numbers.map((num) => Note.create(num)));
-  }
-
-  /** Return a major chord based on a root note.
-   *
-   * @param {Note} rootNote Note corresponding to the root of the chord.
+   * @param {Tone} rootTone Tone corresponding to the root of the chord.
    * @returns {Chord} A major chord. */
-  static majorChord(rootNote) {
-    const third = Interval.majorThird.getNote(rootNote);
-    const fifth = Interval.perfectFifth.getNote(rootNote);
-    return Chord.create([rootNote, third, fifth]);
+  static majorChord(rootTone) {
+    const third = Interval.majorThird.getTone(rootTone);
+    const fifth = Interval.perfectFifth.getTone(rootTone);
+    return Chord.create([rootTone, third, fifth]);
   }
 
-  /** Return a minor chord based on a root note.
+  /** Return a minor chord based on a root tone.
    *
-   * @param {Note} rootNote Note corresponding to the root of the chord.
+   * @param {Tone} rootTone Tone corresponding to the root of the chord.
    * @returns {Chord} A minor chord. */
-  static minorChord(rootNote) {
-    const third = Interval.minorThird.getNote(rootNote);
-    const fifth = Interval.perfectFifth.getNote(rootNote);
-    return Chord.create([rootNote, third, fifth]);
+  static minorChord(rootTone) {
+    const third = Interval.minorThird.getTone(rootTone);
+    const fifth = Interval.perfectFifth.getTone(rootTone);
+    return Chord.create([rootTone, third, fifth]);
   }
 
   /** For testing. */
