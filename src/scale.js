@@ -20,7 +20,7 @@ export default class Scale {
     return takeRandom(this.tones);
   }
 
-  /** For testing */
+  /** For testing. */
   static resetCache() {
     // TODO implement once a cache is set
   }
