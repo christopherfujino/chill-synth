@@ -26,8 +26,7 @@ export default class Interval {
    * Lazily load interval from cache.
    *
    * @param {number} distance - Number of semitones in this interval.
-   * @returns {Interval} - Lazily-loaded interval.
-   */
+   * @returns {Interval} - Lazily-loaded interval. */
   static create(distance) {
     if (intervalCache.has(distance)) {
       return intervalCache.get(distance);
