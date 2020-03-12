@@ -33,6 +33,15 @@ export default class Tone {
   }
 
   /**
+   * Get name for this tone.
+   *
+   * @returns {string} The string representing this tone.
+   */
+  toString() {
+    return toneMap.get(this.toneNumber);
+  }
+
+  /**
    * Will return cached instance first if it exists.
    *
    * @param {number} toneNumber A number between 0 and 11, mapping to the chromatic scale.
@@ -45,15 +54,6 @@ export default class Tone {
     const tone = new Tone(toneNumber);
     toneCache.set(toneNumber, tone);
     return tone;
-  }
-
-  /**
-   * Get name for this tone.
-   *
-   * @returns {string} The string representing this tone.
-   */
-  toString() {
-    return toneMap.get(this.toneNumber);
   }
 
   /** For testing. */
