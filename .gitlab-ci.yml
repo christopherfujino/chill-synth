@@ -16,6 +16,6 @@ build:
   script:
     - npm run build
 
-fresh:
-  script:
-    - ./scripts/check-dependencies.sh
+#fresh: # TODO fix, this doesn't work
+#  script:
+#    - ./scripts/check-dependencies.sh

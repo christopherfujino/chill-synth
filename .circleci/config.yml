@@ -21,7 +21,7 @@ jobs:
           name: build
           command: npm run build
           when: always
-      - run:
-          name: verify dependency freshness
-          command: ./scripts/check-dependencies.sh
-          when: always
+      #- run: #TODO this doesn't work!
+      #    name: verify dependency freshness
+      #    command: ./scripts/check-dependencies.sh
+      #    when: always
