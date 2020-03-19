@@ -11,6 +11,10 @@ describe("Range", () => {
     expect(range).toBeInstanceOf(Range);
   });
 
+  it("throws an exception when startNote is greater than endNote", () => {
+    expect(() => new Range(new Note(1), new Note(0))).toThrow();
+  });
+
   it(".toString() returns correct output", () => {
     const range = new Range(new Note(29), new Note(36));
     const string = range.toString();
