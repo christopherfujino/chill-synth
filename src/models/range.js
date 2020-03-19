@@ -9,9 +9,14 @@ const rangeCache = new Map();
 export default class Range {
   /** Create a new Range.
    *
+   * The startNote must be less than or equal to the endNote.
+   *
    * @param {Note} startNote Starting note of the range.
    * @param {Note} endNote Ending note of the range. */
   constructor(startNote, endNote) {
+    if (startNote.midiNumber > endNote.midiNumber) {
+      throw new Error(`startNote (${startNote}) is greater than endNote (${endNote})!`);
+    }
     /** @type {Note} */
     this.startNote = startNote;
     /** @type {Note} */

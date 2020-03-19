@@ -1,5 +1,7 @@
 /** @module tone */
 
+import Note from "./note.js";
+
 const toneMap = new Map([
   [0, "C"],
   [1, "C#"],
@@ -17,13 +19,15 @@ const toneMap = new Map([
 
 const toneCache = new Map();
 
+const TONES_IN_OCTAVE = 12;
+
 /** One of the 12 tones. */
 export default class Tone {
   /** Create a new Tone. Prefer Tone.create(), as it lazily loads.
    *
    * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale. */
   constructor(toneNumber) {
-    if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > 11) {
+    if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > TONES_IN_OCTAVE - 1) {
       throw `${toneNumber} is not a valid toneNumber (0-11)!`;
     }
     /** Numeric mapping of notes in chromatic scale; C == 0.
@@ -39,6 +43,27 @@ export default class Tone {
    */
   toString() {
     return toneMap.get(this.toneNumber);
+  }
+
+  /** Given a Range, find all notes matching this tone within the range.
+   *
+   * @param {Range} range Range notes must be within.
+   * @returns {Note[]} Array of all matching notes within the range. */
+  findNotesFromRange(range) {
+    const notes = [];
+    // TODO: code smell, implementation leakage
+    const startNum = range.startNote.midiNumber;
+    const endNum = range.endNote.midiNumber;
+    const startTone = range.startNote.tone;
+    let distance = this.toneNumber - startTone.toneNumber;
+    // distance should be between 0 and 11
+    if (distance < 0) {
+      distance = distance + TONES_IN_OCTAVE;
+    }
+    for (let cur = startNum + distance; cur < endNum; cur += TONES_IN_OCTAVE) {
+      notes.push(Note.create(cur));
+    }
+    return notes;
   }
 
   /**

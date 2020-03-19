@@ -1,4 +1,6 @@
 import Chord from "./chord.js";
+import Note from "./note.js";
+import Range from "./range.js";
 import Tone from "./tone.js";
 
 describe("Chord", () => {
@@ -46,10 +48,11 @@ describe("Chord", () => {
     expect(hash1).toBe(hash2);
   });
 
-  it(".takeRandom() returns a tone within the chord", () => {
+  it(".takeRandomInRange() returns a tone within the chord", () => {
     const tones = [new Tone(0), new Tone(3), new Tone(7)];
     const chord = new Chord(tones);
-    const takenTone = chord.takeRandom();
-    expect(tones.includes(takenTone)).toBe(true);
+    const range = new Range(new Note(3), new Note(33));
+    const takenNote = chord.takeRandomInRange(range);
+    expect(tones.map((tone) => tone.toneNumber).includes(takenNote.tone.toneNumber)).toBe(true);
   });
 });

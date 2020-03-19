@@ -15,7 +15,7 @@ export default class Note {
    * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127. */
   constructor(midiNumber) {
     if (typeof midiNumber !== "number") {
-      throw "You must provide a midiNumber when constructing a Note";
+      throw new Error("You must provide a midiNumber when constructing a Note");
     }
 
     /** @type {number} */

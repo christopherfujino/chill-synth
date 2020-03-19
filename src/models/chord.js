@@ -13,8 +13,8 @@ export default class Chord {
    *
    * @param {Tone[]} tones Tones to compose Chord with. */
   constructor(tones) {
-    if (tones === undefined) {
-      throw "An array of tones must be provided";
+    if (tones === undefined || tones.length < 1) {
+      throw new Error(`An array of tones must be provided; tones: ${tones}`);
     }
     /** Array of tones in the chord.
      *
@@ -45,11 +45,18 @@ export default class Chord {
     return Chord.hashTones(this.tones);
   }
 
-  /** Return a random tone from this Chord.
+  /** Return a random note within the given range from this Chord.
    *
+   * @param {Range} range Inclusive range from which to return Notes.
    * @returns {Tone} A random tone. */
-  takeRandom() {
-    return takeRandom(this.tones);
+  takeRandomInRange(range) {
+    const notes = [];
+    for (let i = 0; i < this.tones.length; i++) {
+      const notesFromTone = this.tones[i].findNotesFromRange(range);
+      notes.push(...notesFromTone);
+    }
+
+    return takeRandom(notes);
   }
 
   /** Concatenate the .toString of each tone in the provided Array.
@@ -60,7 +67,7 @@ export default class Chord {
    * @param {Tone[]} tones The tones you wish to get a unique identifier for.
    * @returns {string} A hash string of the input tones. */
   static hashTones(tones) {
-    return tones.reduce((acc, cur) => `${acc}${cur.toString()}`);
+    return tones.reduce((acc, cur) => acc + cur.toString());
   }
 
   /** Return a major chord based on a root tone.
