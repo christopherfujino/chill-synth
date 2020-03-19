@@ -18,10 +18,18 @@ export default class Range {
     this.endNote = endNote;
   }
 
+  /** String corresponding to Range.
+   *
+   * @returns {string} - String representation of this Range. */
   toString() {
     return `${this.startNote.toString()} - ${this.endNote.toString()}`;
   }
 
+  /** Will return cached instance first if it exists.
+   *
+   * @param {Note} startNote First note of range, inclusive.
+   * @param {Note} endNote Last note of range, inclusive.
+   * @returns {Range} Lazily-loaded Range. */
   static create(startNote, endNote) {
     const key = `${startNote.toString()} - ${endNote.toString()}`;
     if (rangeCache.has(key)) {

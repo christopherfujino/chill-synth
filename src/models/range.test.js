@@ -23,5 +23,5 @@ describe("Range", () => {
     const range1 = Range.create(note1, note2);
     const range2 = Range.create(note1, note2);
     expect(range1).toBe(range2);
-  })
+  });
 });
