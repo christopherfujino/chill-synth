@@ -1,5 +1,5 @@
 module.exports = {
-  presets: [
+  "presets": [
     [
       "@babel/preset-env",
       {
@@ -9,4 +9,5 @@ module.exports = {
       }
     ],
   ],
+  "plugins": ["@babel/plugin-transform-react-jsx"],
 };
