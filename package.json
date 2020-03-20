@@ -13,6 +13,7 @@
     "watch": "webpack --watch",
     "doc": "jsdoc --recurse ./src",
     "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'",
+    "update": "npm update",
     "update-packages": "ncu -u"
   },
   "author": "Christopher Fujino",
@@ -23,11 +24,11 @@
     "preact-render-to-string": "^5.1.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/plugin-transform-react-jsx": "^7.8.3",
-    "@babel/preset-env": "^7.8.7",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-react-jsx": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-jsdoc": "^22.1.0",
     "html-webpack-plugin": "^3.2.0",
