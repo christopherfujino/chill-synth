@@ -1,7 +1,9 @@
-import { Component } from 'preact';
+import { Component, h, render } from 'preact';
 
-export default class App extends Component {
+//export default class App extends Component {
+class App extends Component {
   render() {
+    console.log("Hi from preact!");
     return (
       <div>
         <h1>Hello, World!</h1>
@@ -9,3 +11,5 @@ export default class App extends Component {
     );
   }
 }
+
+render(<App />, document.body);
