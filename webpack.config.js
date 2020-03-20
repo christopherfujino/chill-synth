@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const appTitle = "ChillSynth";
 
 module.exports = {
-  devtool: "inline-source-map",
+  //devtool: "inline-source-map",
   entry: "./src/index.js",
   mode: "development", // TODO: JS fails in production mode
   output: {
@@ -19,4 +19,15 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        }
+      }
+    ],
+  }
 };
