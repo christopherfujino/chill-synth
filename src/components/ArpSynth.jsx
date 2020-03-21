@@ -22,7 +22,7 @@ export default class ArpSynth extends Component {
     super();
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
-    this.synth = new Tonejs.Synth(SYNTH_OPTIONS).toMaster();
+    this.synth = new Tonejs.Synth(SYNTH_OPTIONS).toDestination();
     const chords = [
       Chord.minorChord(Tone.create(0)), // C minor
       Chord.majorChord(Tone.create(10)), // Bb major
@@ -42,6 +42,7 @@ export default class ArpSynth extends Component {
     });
 
     this.state = {
+      audioContextStarted: false,
       chord: chords[0],
       chords: chords,
       note: null,
@@ -58,32 +59,38 @@ export default class ArpSynth extends Component {
       this.synth.triggerAttackRelease(note.toString(), "8n", time);
     }, "4n");
 
-    loop.start(0);
+    loop.start(0); // start loop at beginning of timeline
   }
 
   toggleIsPlaying() {
     console.log("Initiating toggle");
 
-    const {isPlaying} = this.state;
+    const {audioContextStarted, isPlaying} = this.state,
+      nextState = {"isPlaying": !isPlaying};
 
     if (isPlaying) {
       console.log("Pausing playback.");
       Tonejs.Transport.pause();
     } else {
+      if (!audioContextStarted) {
+        Tonejs.start();
+        nextState["audioContextStarted"] = true;
+      }
       // Tone.Transport is the timekeeper
       Tonejs.Transport.start();
       console.log("Play tone!");
     }
-    this.setState({"isPlaying": !isPlaying});
+    this.setState(nextState);
   }
 
   render(_props, state) {
     const {toggleIsPlaying} = this;
-    const {note} = state;
+    const {audioContextStarted, note} = state;
     const noteDescriptor = note === null ? "" : note.toString();
     return (
       <div>
         <h3>My Great Synth</h3>
+        <div>Tonejs: {audioContextStarted ? "on" : "off"}</div>
         <div>Current Note: {noteDescriptor}</div>
         <div>Current Chord: {state.chord.toString()}</div>
         <button
