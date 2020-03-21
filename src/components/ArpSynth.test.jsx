@@ -42,9 +42,9 @@ describe("<ArpSynth />", () => {
   });
 
   describe("shallow rendering", () => {
-    it("succeeds", () => {
+    it("succeeds with 4 buttons", () => {
       const wrapper = shallow(<ArpSynth />);
-      expect(wrapper.find("button")).toHaveLength(1);
+      expect(wrapper.find("button")).toHaveLength(4);
     });
 
     it("click", () => {

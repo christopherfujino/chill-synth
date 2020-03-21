@@ -38,6 +38,10 @@ export default class Chord {
     return chord;
   }
 
+  toString() {
+    return Chord.hashTones(this.tones);
+  }
+
   /** Uniquely-identifying string of all Tones in this Chord.
    *
    * @returns {string} Hash string. */

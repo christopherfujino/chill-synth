@@ -23,21 +23,38 @@ export default class ArpSynth extends Component {
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
     this.synth = new Tonejs.Synth(SYNTH_OPTIONS).toMaster();
+    const chords = [
+      Chord.minorChord(Tone.create(0)), // C minor
+      Chord.majorChord(Tone.create(10)), // Bb major
+      Chord.majorChord(Tone.create(8)), // Ab major
+    ];
+
+    this.chordInterface = chords.map((chord) => {
+      const name = chord.toString();
+      return (
+        <button
+          key={name}
+          onClick={() => this.setState({"chord": chord})}
+        >
+          {name}
+        </button>
+      );
+    });
 
     this.state = {
-      currentNote: "",
+      chord: chords[0],
+      chords: chords,
+      note: null,
       isPlaying: false,
     };
   }
 
   componentDidMount() {
-    const rootTone = Tone.create(0); // C
-    const chord = Chord.minorChord(rootTone);
     const range = Range.create(Note.create(36), Note.create(90));
 
     const loop = new Tonejs.Loop((time) => {
-      const note = chord.takeRandomInRange(range);
-      this.setState({"currentNote": note.toString()});
+      const note = this.state.chord.takeRandomInRange(range);
+      this.setState({"note": note.toString()});
       this.synth.triggerAttackRelease(note.toString(), "8n", time);
     }, "4n");
 
@@ -62,18 +79,20 @@ export default class ArpSynth extends Component {
 
   render(_props, state) {
     const {toggleIsPlaying} = this;
+    const {note} = state;
+    const noteDescriptor = note === null ? "" : note.toString();
     return (
       <div>
         <h3>My Great Synth</h3>
-        <div>{state.currentNote}</div>
+        <div>Current Note: {noteDescriptor}</div>
+        <div>Current Chord: {state.chord.toString()}</div>
         <button
           className="play-button"
-          data-playing="false"
           onClick={toggleIsPlaying}
-          role="switch"
-          aria-checked="false">
+          role="switch">
           Play/Pause
         </button>
+        {this.chordInterface}
       </div>
     );
   }
