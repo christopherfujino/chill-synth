@@ -5,11 +5,24 @@ import Note from "../models/note.js";
 import Range from "../models/range.js";
 import Tone from "../models/tone.js";
 
+const SYNTH_OPTIONS = {
+  "oscillator": {
+    "type": "sawtooth",
+  },
+  "envelope": {
+    "attack": 0.025,
+    "decay": 0.175,
+    "sustain": 0,
+    "release": 0.75,
+  },
+};
+
 export default class ArpSynth extends Component {
   constructor() {
     super();
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
+    this.synth = new Tonejs.Synth(SYNTH_OPTIONS).toMaster();
 
     this.state = {
       currentNote: "",
@@ -18,20 +31,6 @@ export default class ArpSynth extends Component {
   }
 
   componentDidMount() {
-    const synthOptions = {
-      "oscillator": {
-        "type": "sawtooth",
-      },
-      "envelope": {
-        "attack": 0.025,
-        "decay": 0.175,
-        "sustain": 0,
-        "release": 0.75,
-      },
-    };
-
-    const arpeggio = new Tonejs.Synth(synthOptions).toMaster();
-
     const rootTone = Tone.create(0); // C
     const chord = Chord.minorChord(rootTone);
     const range = Range.create(Note.create(36), Note.create(90));
@@ -39,7 +38,7 @@ export default class ArpSynth extends Component {
     const loop = new Tonejs.Loop((time) => {
       const note = chord.takeRandomInRange(range);
       this.setState({"currentNote": note.toString()});
-      arpeggio.triggerAttackRelease(note.toString(), "8n", time);
+      this.synth.triggerAttackRelease(note.toString(), "8n", time);
     }, "4n");
 
     loop.start(0);
