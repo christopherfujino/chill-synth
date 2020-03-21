@@ -3,7 +3,9 @@ env:
   commonjs: true
   es6: true
   jest: true
-extends: 'eslint:recommended'
+extends:
+  - "eslint:recommended"
+  - "plugin:react/recommended"
 parserOptions:
   ecmaFeatures:
     #experimentalObjectRestSpread: true
@@ -11,7 +13,11 @@ parserOptions:
   sourceType: module
 plugins:
   - jsdoc
-  #- react
+  - react
+settings:
+  react:
+    pragma: "h"
+
 rules:
   indent:
     - error
@@ -45,8 +51,8 @@ rules:
     - error
     - require:
         FunctionDeclaration: true
-        MethodDefinition: true
-        ClassDeclaration: true
+        MethodDefinition: false # this becomes a pain for preact
+        ClassDeclaration: false # this becomes a pain for preact
         ArrowFunctionExpression: false # Let's not get crazy
         FunctionExpression: false
   jsdoc/require-param: 1 # Recommended
