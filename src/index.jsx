@@ -10,6 +10,8 @@ class App extends Component {
   constructor() {
     super();
 
+    this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
+
     this.state = {
       currentNote: "",
       isPlaying: false,
@@ -19,7 +21,7 @@ class App extends Component {
   componentDidMount() {
     console.log("About to play a note...");
 
-    const playButton = document.querySelector("#play-button");
+    //const playButton = document.querySelector("#play-button");
 
     const synthOptions = {
       "oscillator": {
@@ -46,21 +48,24 @@ class App extends Component {
     }, "4n");
 
     loop.start(0);
+  }
 
-    playButton.addEventListener("click", () => {
-      if (this.state.isPlaying) {
-        Tonejs.Transport.pause();
-        console.log("Pausing playback.");
-      } else {
-        // Tone.Transport is the timekeeper
-        Tonejs.Transport.start();
-        console.log("Play tone!");
-      }
-      this.setState({"isPlaying": !this.state.isPlaying});
-    });
+  toggleIsPlaying() {
+    const {isPlaying} = this.state;
+
+    if (isPlaying) {
+      Tonejs.Transport.pause();
+      console.log("Pausing playback.");
+    } else {
+      // Tone.Transport is the timekeeper
+      Tonejs.Transport.start();
+      console.log("Play tone!");
+    }
+    this.setState({"isPlaying": !isPlaying});
   }
 
   render(_, state) {
+    const {toggleIsPlaying} = this;
     return (
       <div>
         <h1>Welcome!</h1>
@@ -68,9 +73,10 @@ class App extends Component {
         <button
           id="play-button"
           data-playing="false"
+          onClick={toggleIsPlaying}
           role="switch"
           aria-checked="false">
-          <span>Play/Pause</span>
+          Play/Pause
         </button>
       </div>
     );
