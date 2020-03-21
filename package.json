@@ -4,17 +4,16 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "jest",
+    "build": "webpack",
+    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'",
     "coverage": "jest --coverage=true",
+    "doc": "jsdoc --recurse ./src",
     "lint": "eslint ./src --ext .jsx,.js",
     "serve": "node server.js",
-    "build": "webpack",
-    "build-preact": "preact build",
-    "watch": "webpack --watch",
-    "doc": "jsdoc --recurse ./src",
-    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'",
+    "test": "jest",
     "update": "npm update",
-    "update-packages": "ncu -u"
+    "update-packages": "ncu -u",
+    "watch": "webpack --watch"
   },
   "author": "Christopher Fujino",
   "license": "ISC",
