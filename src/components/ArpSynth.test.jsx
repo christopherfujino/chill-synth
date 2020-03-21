@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { render } from "enzyme";
+import { render, shallow } from "enzyme";
 import ArpSynth from "./ArpSynth.jsx";
 
 jest.mock("tone", () => {
@@ -9,20 +9,49 @@ jest.mock("tone", () => {
   const Synth = jest.fn().mockImplementation(() => {
     return {"toMaster": jest.fn()};
   });
+  const Transport = {
+    "pause": jest.fn(),
+    "start": jest.fn(),
+  };
   // Works and lets you check for constructor calls:
   return {
     "Loop": Loop,
     "Synth": Synth,
+    "Transport": Transport,
   };
 });
 
 describe("<ArpSynth />", () => {
-  it("constructs", () => {
-    render(<ArpSynth />);
+  let consoleLog;
+  beforeEach(() => {
+    consoleLog = jest.fn();
+    global.console = {
+      "log": consoleLog,
+    };
   });
 
-  it("renders first time paused", () => {
-    const synth = render(<ArpSynth />);
-    expect(synth.text()).toMatch(RegExp("[Pp]ause"));
+  describe("static rendering", () => {
+    it("succeeds", () => {
+      render(<ArpSynth />);
+    });
+
+    it("renders first time paused", () => {
+      const synth = render(<ArpSynth />);
+      expect(synth.text()).toMatch(RegExp("[Pp]ause"));
+    });
+  });
+
+  describe("shallow rendering", () => {
+    it("succeeds", () => {
+      const wrapper = shallow(<ArpSynth />);
+      expect(wrapper.find("button")).toHaveLength(1);
+    });
+
+    it("click", () => {
+      const wrapper = shallow(<ArpSynth />);
+      wrapper.find(".play-button").simulate("click");
+      expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
+      expect(consoleLog).toHaveBeenCalledWith("Play tone!");
+    });
   });
 });

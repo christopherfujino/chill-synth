@@ -45,13 +45,13 @@ export default class ArpSynth extends Component {
   }
 
   toggleIsPlaying() {
-    console.log("toggle time!");
+    console.log("Initiating toggle");
 
     const {isPlaying} = this.state;
 
     if (isPlaying) {
-      Tonejs.Transport.pause();
       console.log("Pausing playback.");
+      Tonejs.Transport.pause();
     } else {
       // Tone.Transport is the timekeeper
       Tonejs.Transport.start();
@@ -67,7 +67,7 @@ export default class ArpSynth extends Component {
         <h3>My Great Synth</h3>
         <div>{state.currentNote}</div>
         <button
-          id="play-button"
+          className="play-button"
           data-playing="false"
           onClick={toggleIsPlaying}
           role="switch"
