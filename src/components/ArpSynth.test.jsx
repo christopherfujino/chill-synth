@@ -6,7 +6,7 @@ jest.mock("tone", () => {
   const Loop = jest.fn().mockImplementation(() => {
     return {"start": jest.fn()};
   });
-  const Synth = jest.fn().mockImplementation(() => {
+  const PolySynth = jest.fn().mockImplementation(() => {
     return {"toDestination": jest.fn()};
   });
   const Transport = {
@@ -17,7 +17,7 @@ jest.mock("tone", () => {
   return {
     "start": jest.fn(),
     "Loop": Loop,
-    "Synth": Synth,
+    "PolySynth": PolySynth,
     "Transport": Transport,
   };
 });
