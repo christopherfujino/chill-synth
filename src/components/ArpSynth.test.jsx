@@ -7,7 +7,7 @@ jest.mock("tone", () => {
     return {"start": jest.fn()};
   });
   const Synth = jest.fn().mockImplementation(() => {
-    return {"toMaster": jest.fn()};
+    return {"toDestination": jest.fn()};
   });
   const Transport = {
     "pause": jest.fn(),
@@ -15,6 +15,7 @@ jest.mock("tone", () => {
   };
   // Works and lets you check for constructor calls:
   return {
+    "start": jest.fn(),
     "Loop": Loop,
     "Synth": Synth,
     "Transport": Transport,

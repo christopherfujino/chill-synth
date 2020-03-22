@@ -1,5 +1,6 @@
 import { Component, h, render } from "preact";
 import ArpSynth from "./components/ArpSynth.jsx";
+import TransportControl from "./components/TransportControl.jsx";
 
 //export default class App extends Component {
 class App extends Component {
@@ -8,6 +9,7 @@ class App extends Component {
       <div>
         <h1>Welcome!</h1>
         <ArpSynth />
+        <TransportControl />
       </div>
     );
   }
