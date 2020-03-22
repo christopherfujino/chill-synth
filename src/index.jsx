@@ -2,12 +2,11 @@ import { Component, h, render } from "preact";
 import ArpSynth from "./components/ArpSynth.jsx";
 import TransportControl from "./components/TransportControl.jsx";
 
-//export default class App extends Component {
-class App extends Component {
-  render() {
+export class App extends Component {
+  render(props) {
     return (
       <div>
-        <h1>Welcome!</h1>
+        <h1>{props.title}</h1>
         <ArpSynth />
         <TransportControl />
       </div>
@@ -15,4 +14,4 @@ class App extends Component {
   }
 }
 
-render(<App />, document.body);
+render(<App title="Welcome!" />, document.body);
