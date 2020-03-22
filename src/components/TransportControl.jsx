@@ -13,7 +13,7 @@ export default class TransportControl extends Component {
   }
 
   changeBpm(event) {
-    const nextBpm = event.target.value;
+    const nextBpm = Number(event.target.value);
     this.setState(() => {
       Tonejs.Transport.bpm.value = nextBpm;
       return {"bpm": nextBpm};
