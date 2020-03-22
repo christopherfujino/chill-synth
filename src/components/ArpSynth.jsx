@@ -22,7 +22,13 @@ export default class ArpSynth extends Component {
     super();
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
-    this.synth = new Tonejs.Synth(SYNTH_OPTIONS).toDestination();
+    this.synth = new Tonejs.PolySynth(
+      Tonejs.Synth,
+      SYNTH_OPTIONS
+    ).toDestination();
+
+    this.range = Range.create(Note.create(36), Note.create(90));
+
     const chords = [
       Chord.minorChord(Tone.create(0)), // C minor
       Chord.majorChord(Tone.create(10)), // Bb major
@@ -48,15 +54,15 @@ export default class ArpSynth extends Component {
       note: null,
       isPlaying: false,
     };
-  }
-
-  componentDidMount() {
-    const range = Range.create(Note.create(36), Note.create(90));
 
     const loop = new Tonejs.Loop((time) => {
-      const note = this.state.chord.takeRandomInRange(range);
-      this.setState({"note": note.toString()});
-      this.synth.triggerAttackRelease(note.toString(), "8n", time);
+      const {chord} = this.state,
+        notes = [];
+      for (let i = 0; i < 3; i++) {
+        notes.push(chord.takeRandomInRange(this.range).toString());
+      }
+      //this.setState({"note": note.toString()});
+      this.synth.triggerAttackRelease(notes, "8n", time);
     }, "4n");
 
     loop.start(0); // start loop at beginning of timeline
