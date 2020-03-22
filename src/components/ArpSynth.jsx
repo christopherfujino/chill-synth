@@ -61,7 +61,6 @@ export default class ArpSynth extends Component {
       for (let i = 0; i < 3; i++) {
         notes.push(chord.takeRandomInRange(this.range).toString());
       }
-      //this.setState({"note": note.toString()});
       this.synth.triggerAttackRelease(notes, "8n", time);
     }, "4n");
 
