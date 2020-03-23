@@ -22,6 +22,8 @@ export default class ArpSynth extends Component {
     super();
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
+    this.changeOscillator = this.changeOscillator.bind(this);
+
     this.synth = new Tonejs.PolySynth(
       Tonejs.Synth,
       SYNTH_OPTIONS
@@ -47,6 +49,19 @@ export default class ArpSynth extends Component {
       );
     });
 
+    this.oscillatorWaveFormSelectors = [
+      "sawtooth",
+      "sine",
+      "triangle",
+      "square",
+    ].map((shape) => (
+      <button
+        key={shape}
+        onClick={() => this.changeOscillator(shape)}>
+        {shape}
+      </button>
+    ));
+
     this.state = {
       audioContextStarted: false,
       chord: chords[0],
@@ -65,6 +80,14 @@ export default class ArpSynth extends Component {
     }, "4n");
 
     loop.start(0); // start loop at beginning of timeline
+  }
+
+  changeOscillator(waveform) {
+    this.synth.set({
+      "oscillator": {
+        "type": waveform,
+      },
+    });
   }
 
   toggleIsPlaying() {
@@ -104,7 +127,12 @@ export default class ArpSynth extends Component {
           role="switch">
           Play/Pause
         </button>
-        {this.chordInterface}
+        <div>
+          {this.chordInterface}
+        </div>
+        <div>
+          {this.oscillatorWaveFormSelectors}
+        </div>
       </div>
     );
   }
