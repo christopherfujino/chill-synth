@@ -41,30 +41,40 @@ export default class ArpSynth extends Component {
       Chord.diminished(Tone.create(11)), // B diminished
     ];
 
-    this.chordInterface = chords.map((chord) => {
-      const name = chord.toString();
-      return (
-        <button
-          key={name}
-          onClick={() => this.setState({"chord": chord})}
-        >
-          {name}
-        </button>
-      );
-    });
+    this.chordInterface = (
+      <div className="btn-group btn-group-block">
+        {
+          chords.map((chord) => {
+            const name = chord.toString();
+            return (
+              <button
+                className="btn"
+                key={name}
+                onClick={() => this.setState({"chord": chord})}
+              >
+                {name}
+              </button>
+            );
+          })
+        }
+      </div>);
 
-    this.oscillatorWaveFormSelectors = [
-      "sawtooth",
-      "sine",
-      "triangle",
-      "square",
-    ].map((shape) => (
-      <button
-        key={shape}
-        onClick={() => this.changeOscillator(shape)}>
-        {shape}
-      </button>
-    ));
+    this.oscillatorWaveFormSelectors = (
+      <div className="btn-group btn-group-block">
+        {[
+          "sawtooth",
+          "sine",
+          "triangle",
+          "square",
+        ].map((shape) => (
+          <button
+            className="btn"
+            key={shape}
+            onClick={() => this.changeOscillator(shape)}>
+            {shape}
+          </button>
+        ))}
+      </div>);
 
     this.state = {
       audioContextStarted: false,
@@ -131,7 +141,7 @@ export default class ArpSynth extends Component {
         <div>Current Note: {noteDescriptor}</div>
         <div>Current Chord: {state.chord.toString()}</div>
         <button
-          className="play-button"
+          className="play-button btn"
           onClick={toggleIsPlaying}
           role="switch">
           Play/Pause
