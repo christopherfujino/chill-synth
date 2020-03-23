@@ -7,7 +7,11 @@ jest.mock("tone", () => {
     return {"start": jest.fn()};
   });
   const PolySynth = jest.fn().mockImplementation(() => {
-    return {"toDestination": jest.fn()};
+    return {
+      "toDestination": jest.fn(() => {
+        return {"get": jest.fn(() => ({"oscillator": {"type": "sawtooth"}}))};
+      }),
+    };
   });
   const Transport = {
     "pause": jest.fn(),
@@ -43,9 +47,9 @@ describe("<ArpSynth />", () => {
   });
 
   describe("shallow rendering", () => {
-    it("succeeds with 4 buttons", () => {
+    it("succeeds with buttons", () => {
       const wrapper = shallow(<ArpSynth />);
-      expect(wrapper.find("button")).toHaveLength(4);
+      expect(wrapper.find("button")).toHaveLength(12);
     });
 
     it("click", () => {
