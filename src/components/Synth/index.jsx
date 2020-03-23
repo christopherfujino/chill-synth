@@ -27,12 +27,12 @@ export default class Synth extends Component {
     }
     super(props);
 
-    this.changeOscillator = this.changeOscillator.bind(this);
+    this.updateOscillator = this.updateOscillator.bind(this);
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
     this.updateEnvelope = this.updateEnvelope.bind(this);
 
     this.synth = new Tonejs.PolySynth(
-      Tonejs.Synth,
+      Tonejs.MonoSynth,
       SYNTH_OPTIONS
     ).toDestination();
 
@@ -77,7 +77,7 @@ export default class Synth extends Component {
           <button
             className="btn"
             key={shape}
-            onClick={() => this.changeOscillator(shape)}>
+            onClick={() => this.updateOscillator(shape)}>
             {shape}
           </button>
         ))}
@@ -111,7 +111,7 @@ export default class Synth extends Component {
     loop.start(0); // start loop at beginning of timeline
   }
 
-  changeOscillator(waveform) {
+  updateOscillator(waveform) {
     this.setState(() => {
       this.synth.set({
         "oscillator": {
