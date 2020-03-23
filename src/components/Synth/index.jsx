@@ -27,8 +27,9 @@ export default class Synth extends Component {
     }
     super(props);
 
-    this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
     this.changeOscillator = this.changeOscillator.bind(this);
+    this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
+    this.updateEnvelope = this.updateEnvelope.bind(this);
 
     this.synth = new Tonejs.PolySynth(
       Tonejs.Synth,
@@ -82,12 +83,20 @@ export default class Synth extends Component {
         ))}
       </div>);
 
+    const synthAttributes = this.synth.get();
+    const envelope = synthAttributes.envelope;
     this.state = {
+      adsr: {
+        "attack": envelope.attack.toString(),
+        "decay": envelope.decay.toString(),
+        "sustain": envelope.sustain.toString(),
+        "release": envelope.release.toString(),
+      },
       chord: chords[0],
       chords: chords,
       isPlaying: false,
       note: null,
-      waveform: this.synth.get().oscillator.type,
+      waveform: synthAttributes.oscillator.type,
     };
 
     const loop = new Tonejs.Loop((time) => {
@@ -111,6 +120,19 @@ export default class Synth extends Component {
       });
 
       return {"waveform": waveform};
+    });
+  }
+
+  updateEnvelope(field, value) {
+    console.log(field);
+    console.log(value);
+    this.setState((prevState) => {
+      const newAdsr = Object.assign(new Object(), prevState.adsr, {[field]: value});
+      this.synth.set({
+        "envelope": newAdsr
+      });
+
+      return {"adsr": newAdsr};
     });
   }
 
@@ -162,6 +184,31 @@ export default class Synth extends Component {
             {waveform}
           </span>
           {this.oscillatorWaveFormSelectors}
+        </div>
+        <div>
+          Envelope
+          {["attack", "decay", "sustain", "release"].map((field) => {
+            const displayName = field.slice(0,1).toUpperCase() + field.slice(1);
+            const currentValue = state.adsr[field];
+
+            return (
+              <div className="columns" key={field}>
+                <div className="column col-6">
+                  <label>{displayName}: {currentValue}</label>
+                </div>
+                <div className="column col-6">
+                  <input
+                    type="range"
+                    onInput={(e) => this.updateEnvelope(field, e.target.value)}
+                    min="0"
+                    max="2"
+                    step="0.025"
+                    value={currentValue}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

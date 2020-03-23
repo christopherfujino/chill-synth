@@ -9,7 +9,15 @@ jest.mock("tone", () => {
   const PolySynth = jest.fn().mockImplementation(() => {
     return {
       "toDestination": jest.fn(() => {
-        return {"get": jest.fn(() => ({"oscillator": {"type": "sawtooth"}}))};
+        return {"get": jest.fn(() => ({
+          "envelope": {
+            "attack": 1,
+            "decay": 1,
+            "sustain": 1,
+            "release": 1,
+          },
+          "oscillator": {"type": "sawtooth"},
+        }))};
       }),
     };
   });

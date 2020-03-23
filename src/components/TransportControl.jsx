@@ -31,7 +31,6 @@ export default class TransportControl extends Component {
           <label>BPM {bpmNum}</label>
           <input
             type="range"
-            id="volume"
             name="volume"
             onInput={changeBpm}
             min="0"
