@@ -37,23 +37,23 @@ describe("<ArpSynth />", () => {
 
   describe("static rendering", () => {
     it("succeeds", () => {
-      render(<ArpSynth />);
+      render(<ArpSynth audioContextStarted={false} />);
     });
 
     it("renders first time paused", () => {
-      const synth = render(<ArpSynth />);
+      const synth = render(<ArpSynth audioContextStarted={false} />);
       expect(synth.text()).toMatch(RegExp("[Pp]ause"));
     });
   });
 
   describe("shallow rendering", () => {
     it("succeeds with buttons", () => {
-      const wrapper = shallow(<ArpSynth />);
+      const wrapper = shallow(<ArpSynth audioContextStarted={false} />);
       expect(wrapper.find("button")).toHaveLength(12);
     });
 
     it("click", () => {
-      const wrapper = shallow(<ArpSynth />);
+      const wrapper = shallow(<ArpSynth audioContextStarted={false} />);
       wrapper.find(".play-button").simulate("click");
       expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
       expect(consoleLog).toHaveBeenCalledWith("Play tone!");

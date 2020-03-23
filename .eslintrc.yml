@@ -64,3 +64,4 @@ rules:
   jsdoc/require-returns-description: 1 # Recommended
   jsdoc/require-returns-type: 1 # Recommended
   jsdoc/valid-types: 1 # Recommended
+  react/prop-types: 0 # not included in core preact

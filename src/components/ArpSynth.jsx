@@ -18,8 +18,11 @@ const SYNTH_OPTIONS = {
 };
 
 export default class ArpSynth extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    if (props.audioContextStarted === undefined) {
+      throw new Error("Must provide audioContextStarted prop");
+    }
+    super(props);
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
     this.changeOscillator = this.changeOscillator.bind(this);
@@ -77,7 +80,7 @@ export default class ArpSynth extends Component {
       </div>);
 
     this.state = {
-      audioContextStarted: false,
+      audioContextStarted: props.audioContextStarted,
       chord: chords[0],
       chords: chords,
       isPlaying: false,

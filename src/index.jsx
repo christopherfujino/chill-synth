@@ -10,7 +10,9 @@ export class App extends Component {
         <div className="columns text-center">
           <div className="col-mx-auto col-8 col-lg-12">
             <h1>{props.title}</h1>
-            <ArpSynth />
+            <ArpSynth
+              audioContextStarted={false}
+            />
             <TransportControl />
           </div>
         </div>

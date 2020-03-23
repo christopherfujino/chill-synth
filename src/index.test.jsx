@@ -4,6 +4,7 @@ import { App } from "./index.jsx";
 
 jest.mock("./components/ArpSynth.jsx");
 jest.mock("./components/TransportControl.jsx");
+// spectre.css is globally stubbed in jest config
 
 describe("<App />", () => {
   describe("static render", () => {
