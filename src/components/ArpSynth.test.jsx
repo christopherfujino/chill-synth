@@ -40,6 +40,10 @@ describe("<ArpSynth />", () => {
       render(<ArpSynth audioContextStarted={false} />);
     });
 
+    it("fails if not passed audioContextStarted prop", () => {
+      expect(() => render(<ArpSynth />)).toThrow();
+    });
+
     it("renders first time paused", () => {
       const synth = render(<ArpSynth audioContextStarted={false} />);
       expect(synth.text()).toMatch(RegExp("[Pp]ause"));
