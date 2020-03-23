@@ -37,30 +37,52 @@ describe("<ArpSynth />", () => {
 
   describe("static rendering", () => {
     it("succeeds", () => {
-      render(<ArpSynth audioContextStarted={false} />);
+      render(
+        <ArpSynth
+          audioContextStarted={false}
+          updateAudioContext={() => null}
+        />
+      );
     });
 
     it("fails if not passed audioContextStarted prop", () => {
-      expect(() => render(<ArpSynth />)).toThrow();
+      expect(() => render(
+        <ArpSynth updateAudioContext={() => null} />)
+      ).toThrow();
     });
 
     it("renders first time paused", () => {
-      const synth = render(<ArpSynth audioContextStarted={false} />);
+      const synth = render(
+        <ArpSynth
+          audioContextStarted={false}
+          updateAudioContext={() => null}
+        />);
       expect(synth.text()).toMatch(RegExp("[Pp]ause"));
     });
   });
 
   describe("shallow rendering", () => {
     it("succeeds with buttons", () => {
-      const wrapper = shallow(<ArpSynth audioContextStarted={false} />);
+      const wrapper = shallow(
+        <ArpSynth
+          audioContextStarted={false}
+          updateAudioContext={() => null}
+        />
+      );
       expect(wrapper.find("button")).toHaveLength(12);
     });
 
     it("click", () => {
-      const wrapper = shallow(<ArpSynth audioContextStarted={false} />);
+      const mock = jest.fn();
+      const wrapper = shallow(
+        <ArpSynth
+          audioContextStarted={false}
+          updateAudioContext={mock}
+        />);
       wrapper.find(".play-button").simulate("click");
       expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
       expect(consoleLog).toHaveBeenCalledWith("Play tone!");
+      expect(mock.mock.calls.length).toBe(1);
     });
   });
 });

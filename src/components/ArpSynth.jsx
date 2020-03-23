@@ -22,6 +22,9 @@ export default class ArpSynth extends Component {
     if (props.audioContextStarted === undefined) {
       throw new Error("Must provide audioContextStarted prop");
     }
+    if (props.updateAudioContext === undefined) {
+      throw new Error("Must provide updateAudioContext");
+    }
     super(props);
 
     this.toggleIsPlaying = this.toggleIsPlaying.bind(this);
@@ -80,7 +83,6 @@ export default class ArpSynth extends Component {
       </div>);
 
     this.state = {
-      audioContextStarted: props.audioContextStarted,
       chord: chords[0],
       chords: chords,
       isPlaying: false,
@@ -115,8 +117,8 @@ export default class ArpSynth extends Component {
   toggleIsPlaying() {
     console.log("Initiating toggle");
 
-    const {audioContextStarted, isPlaying} = this.state,
-      nextState = {"isPlaying": !isPlaying};
+    const {isPlaying} = this.state,
+      {audioContextStarted, updateAudioContext} = this.props;
 
     if (isPlaying) {
       console.log("Pausing playback.");
@@ -124,13 +126,15 @@ export default class ArpSynth extends Component {
     } else {
       if (!audioContextStarted) {
         Tonejs.start();
-        nextState["audioContextStarted"] = true;
+        updateAudioContext(true);
       }
       // Tone.Transport is the timekeeper
       Tonejs.Transport.start();
       console.log("Play tone!");
     }
-    this.setState(nextState);
+    this.setState((prevState) => {
+      return {"isPlaying": !prevState.isPlaying};
+    });
   }
 
   render(_props, state) {
