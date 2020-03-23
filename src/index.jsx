@@ -1,5 +1,5 @@
 import { Component, h, render } from "preact";
-import ArpSynth from "./components/ArpSynth.jsx";
+import Synth from "./components/Synth/index.jsx";
 import TransportControl from "./components/TransportControl.jsx";
 import "spectre.css";
 
@@ -24,7 +24,7 @@ export class App extends Component {
         <div className="columns text-center">
           <div className="col-mx-auto col-8 col-lg-12">
             <h1>{props.title}</h1>
-            <ArpSynth
+            <Synth
               audioContextStarted={state.audioContextStarted}
               updateAudioContext={this.updateAudioContext}
             />

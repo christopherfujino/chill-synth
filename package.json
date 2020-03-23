@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "webpack",
-    "ci": "eslint ./src && jest && webpack && jsdoc --recurse ./src && echo 'success!'",
+    "ci": "eslint ./src && webpack && jest && jsdoc --recurse ./src && echo 'success!'",
     "coverage": "jest --coverage=true",
     "diagnose": "npm outdated; ncu",
     "doc": "jsdoc --recurse ./src",

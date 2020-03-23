@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { render, shallow } from "enzyme";
-import ArpSynth from "./ArpSynth.jsx";
+import Synth from "./index.jsx";
 
 jest.mock("tone", () => {
   const Loop = jest.fn().mockImplementation(() => {
@@ -26,7 +26,7 @@ jest.mock("tone", () => {
   };
 });
 
-describe("<ArpSynth />", () => {
+describe("<Synth />", () => {
   let consoleLog;
   beforeEach(() => {
     consoleLog = jest.fn();
@@ -38,7 +38,7 @@ describe("<ArpSynth />", () => {
   describe("static rendering", () => {
     it("succeeds", () => {
       render(
-        <ArpSynth
+        <Synth
           audioContextStarted={false}
           updateAudioContext={() => null}
         />
@@ -47,24 +47,24 @@ describe("<ArpSynth />", () => {
 
     it("fails if not passed audioContextStarted prop", () => {
       expect(() => render(
-        <ArpSynth updateAudioContext={() => null} />)
+        <Synth updateAudioContext={() => null} />)
       ).toThrow();
     });
 
-    it("renders first time paused", () => {
+    it("renders text reflecting audioContextStarted prop", () => {
       const synth = render(
-        <ArpSynth
+        <Synth
           audioContextStarted={false}
           updateAudioContext={() => null}
         />);
-      expect(synth.text()).toMatch(RegExp("[Pp]ause"));
+      expect(synth.find("div.audio-context-indicator").text()).toBe("Tonejs: off");
     });
   });
 
   describe("shallow rendering", () => {
     it("succeeds with buttons", () => {
       const wrapper = shallow(
-        <ArpSynth
+        <Synth
           audioContextStarted={false}
           updateAudioContext={() => null}
         />
@@ -75,14 +75,16 @@ describe("<ArpSynth />", () => {
     it("click", () => {
       const mock = jest.fn();
       const wrapper = shallow(
-        <ArpSynth
+        <Synth
           audioContextStarted={false}
           updateAudioContext={mock}
         />);
-      wrapper.find(".play-button").simulate("click");
+      wrapper.find("button.play-button").simulate("click");
       expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
       expect(consoleLog).toHaveBeenCalledWith("Play tone!");
       expect(mock.mock.calls.length).toBe(1);
+      // First arg of first invocation was true
+      expect(mock.mock.calls[0][0]).toBe(true);
     });
   });
 });

@@ -1,9 +1,9 @@
 import { Component, h } from "preact";
 import * as Tonejs from "tone";
-import Chord from "../models/chord.js";
-import Note from "../models/note.js";
-import Range from "../models/range.js";
-import Tone from "../models/tone.js";
+import Chord from "../../models/chord.js";
+import Note from "../../models/note.js";
+import Range from "../../models/range.js";
+import Tone from "../../models/tone.js";
 
 const SYNTH_OPTIONS = {
   "oscillator": {
@@ -17,7 +17,7 @@ const SYNTH_OPTIONS = {
   },
 };
 
-export default class ArpSynth extends Component {
+export default class Synth extends Component {
   constructor(props) {
     if (props.audioContextStarted === undefined) {
       throw new Error("Must provide audioContextStarted prop");
@@ -137,14 +137,15 @@ export default class ArpSynth extends Component {
     });
   }
 
-  render(_props, state) {
+  render(props, state) {
     const {toggleIsPlaying} = this;
-    const {audioContextStarted, note, waveform} = state;
+    const {note, waveform} = state,
+      { audioContextStarted } = props;
     const noteDescriptor = note === null ? "" : note.toString();
     return (
       <div>
         <h3>My Great Synth</h3>
-        <div>Tonejs: {audioContextStarted ? "on" : "off"}</div>
+        <div className="audio-context-indicator">Tonejs: {audioContextStarted ? "on" : "off"}</div>
         <div>Current Note: {noteDescriptor}</div>
         <div>Current Chord: {state.chord.toString()}</div>
         <button
