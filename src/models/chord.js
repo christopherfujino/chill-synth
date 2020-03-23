@@ -94,6 +94,16 @@ export default class Chord {
     return Chord.create([rootTone, third, fifth]);
   }
 
+  /** Return a diminished chord based on a root tone.
+   *
+   * @param {Tone} rootTone Tone corresponding to the root of the chord.
+   * @returns {Chord} A diminished chord. */
+  static diminished(rootTone) {
+    const third = Interval.minorThird.getTone(rootTone);
+    const fifth = Interval.tritone.getTone(rootTone);
+    return Chord.create([rootTone, third, fifth]);
+  }
+
   /** For testing. */
   static resetCache() {
     chordCache.clear();

@@ -32,9 +32,13 @@ export default class ArpSynth extends Component {
     this.range = Range.create(Note.create(36), Note.create(90));
 
     const chords = [
-      Chord.minorChord(Tone.create(0)), // C minor
-      Chord.majorChord(Tone.create(10)), // Bb major
-      Chord.majorChord(Tone.create(8)), // Ab major
+      Chord.majorChord(Tone.create(0)), // C major
+      Chord.minorChord(Tone.create(2)), // D minor
+      Chord.minorChord(Tone.create(4)), // E minor
+      Chord.majorChord(Tone.create(5)), // F major
+      Chord.majorChord(Tone.create(7)), // G major
+      Chord.minorChord(Tone.create(9)), // A minor
+      Chord.diminished(Tone.create(11)), // B diminished
     ];
 
     this.chordInterface = chords.map((chord) => {
@@ -66,8 +70,9 @@ export default class ArpSynth extends Component {
       audioContextStarted: false,
       chord: chords[0],
       chords: chords,
-      note: null,
       isPlaying: false,
+      note: null,
+      waveform: this.synth.get().oscillator.type,
     };
 
     const loop = new Tonejs.Loop((time) => {
@@ -83,10 +88,14 @@ export default class ArpSynth extends Component {
   }
 
   changeOscillator(waveform) {
-    this.synth.set({
-      "oscillator": {
-        "type": waveform,
-      },
+    this.setState(() => {
+      this.synth.set({
+        "oscillator": {
+          "type": waveform,
+        },
+      });
+
+      return {"waveform": waveform};
     });
   }
 
@@ -113,7 +122,7 @@ export default class ArpSynth extends Component {
 
   render(_props, state) {
     const {toggleIsPlaying} = this;
-    const {audioContextStarted, note} = state;
+    const {audioContextStarted, note, waveform} = state;
     const noteDescriptor = note === null ? "" : note.toString();
     return (
       <div>
@@ -131,6 +140,9 @@ export default class ArpSynth extends Component {
           {this.chordInterface}
         </div>
         <div>
+          <span>
+            {waveform}
+          </span>
           {this.oscillatorWaveFormSelectors}
         </div>
       </div>
