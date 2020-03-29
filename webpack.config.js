@@ -6,7 +6,7 @@ const appTitle = "ChillSynth";
 
 module.exports = {
   devtool: "inline-source-map",
-  entry: "./src/index.jsx",
+  entry: "./src/index.tsx",
   mode: "development", // TODO: JS fails in production mode
   output: {
     filename: "main.js",
@@ -22,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/i,
+        test: /\.tsx?$/i,
         exclude: /node_modules/,
         use: "ts-loader",
       },

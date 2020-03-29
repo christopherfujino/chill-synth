@@ -1,4 +1,4 @@
-import { Component, h } from "preact";
+import { Component, ComponentChild, h } from "preact";
 import * as Tonejs from "tone";
 import Chord from "../../models/chord";
 import Note from "../../models/note";
@@ -17,8 +17,29 @@ const SYNTH_OPTIONS = {
   },
 };
 
-export default class Synth extends Component {
-  constructor(props) {
+interface Props {
+  audioContextStarted: boolean;
+  updateAudioContext: (started: boolean) => void;
+}
+
+interface Adsr {
+  attack: string;
+  decay: string;
+  sustain: string;
+  release: string;
+}
+
+interface State {
+  adsr: Adsr;
+  chord: Chord;
+  chords: Chord[];
+  isPlaying: boolean;
+  note: Note;
+  waveform: string;
+}
+
+export default class Synth extends Component<Props, State> {
+  constructor(props: Props) {
     if (props.audioContextStarted === undefined) {
       throw new Error("Must provide audioContextStarted prop");
     }
@@ -57,7 +78,7 @@ export default class Synth extends Component {
               <button
                 className="btn"
                 key={name}
-                onClick={() => this.setState({"chord": chord})}
+                onClick={(): void => this.setState({"chord": chord})}
               >
                 {name}
               </button>
@@ -77,7 +98,7 @@ export default class Synth extends Component {
           <button
             className="btn"
             key={shape}
-            onClick={() => this.updateOscillator(shape)}>
+            onClick={(): void => this.updateOscillator(shape)}>
             {shape}
           </button>
         ))}
@@ -101,7 +122,7 @@ export default class Synth extends Component {
 
     const loop = new Tonejs.Loop((time) => {
       const {chord} = this.state,
-        notes = [];
+        notes: Note[] = [];
       for (let i = 0; i < 3; i++) {
         notes.push(chord.takeRandomInRange(this.range).toString());
       }
@@ -110,8 +131,13 @@ export default class Synth extends Component {
 
     loop.start(0); // start loop at beginning of timeline
   }
+  oscillatorWaveFormSelectors: any; // TODO: jsx
+  chordInterface: any; // TODO: jsx
+  range: Range;
+  state: any; // TODO: schema
+  synth: any; // TODO: PolySynth
 
-  updateOscillator(waveform) {
+  updateOscillator(waveform: string): void {
     this.setState(() => {
       this.synth.set({
         "oscillator": {
@@ -123,10 +149,10 @@ export default class Synth extends Component {
     });
   }
 
-  updateEnvelope(field, value) {
+  updateEnvelope(field: string, value: string): void {
     console.log(field);
     console.log(value);
-    this.setState((prevState) => {
+    this.setState((prevState: State) => {
       const newAdsr = Object.assign(new Object(), prevState.adsr, {[field]: value});
       this.synth.set({
         "envelope": newAdsr
@@ -136,7 +162,7 @@ export default class Synth extends Component {
     });
   }
 
-  toggleIsPlaying() {
+  toggleIsPlaying(): void {
     console.log("Initiating toggle");
 
     const {isPlaying} = this.state,
@@ -154,12 +180,12 @@ export default class Synth extends Component {
       Tonejs.Transport.start();
       console.log("Play tone!");
     }
-    this.setState((prevState) => {
+    this.setState((prevState: State) => {
       return {"isPlaying": !prevState.isPlaying};
     });
   }
 
-  render(props, state) {
+  render(props: Props, state: State): ComponentChild {
     const {toggleIsPlaying} = this;
     const {note, waveform} = state,
       { audioContextStarted } = props;
@@ -199,7 +225,7 @@ export default class Synth extends Component {
                 <div className="column col-6">
                   <input
                     type="range"
-                    onInput={(e) => this.updateEnvelope(field, e.target.value)}
+                    onInput={(e): void => this.updateEnvelope(field, e?.target?.value)}
                     min="0"
                     max="2"
                     step="0.025"

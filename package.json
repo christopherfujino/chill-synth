@@ -22,7 +22,7 @@
     "preact": "^10.3.4",
     "preact-render-to-string": "^5.1.4",
     "spectre.css": "^0.5.8",
-    "tone": "^14.5.28"
+    "tone": "^14.5.43"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

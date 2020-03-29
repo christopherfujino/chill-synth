@@ -59,7 +59,7 @@ export default class Chord {
     const notes = [];
     for (let i = 0; i < this.tones.length; i++) {
       const notesFromTone = this.tones[i].findNotesFromRange(range);
-      notes.push(...notesFromTone);
+      Array.prototype.push.apply(notes, notesFromTone);
     }
 
     return takeRandom<Note>(notes);
