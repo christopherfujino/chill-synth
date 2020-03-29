@@ -1,5 +1,5 @@
-import Note from "./note.js";
-import Range from "./range.js";
+import Note from "./note";
+import Range from "./range";
 
 describe("Range", () => {
   afterEach(() => {

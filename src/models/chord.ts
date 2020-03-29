@@ -1,8 +1,8 @@
 /** @module chord */
 
 import { takeRandom } from "../utils.js";
-import Interval from "./interval.js";
-import Tone from "./tone.js";
+import Interval from "./interval";
+import Tone from "./tone";
 
 /** Cache of chord singletons. */
 const chordCache = new Map();

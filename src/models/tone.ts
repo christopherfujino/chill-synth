@@ -1,6 +1,6 @@
 /** @module tone */
 
-import Note from "./note.js";
+import Note from "./note";
 
 const toneMap = new Map([
   [0, "C"],

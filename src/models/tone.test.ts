@@ -1,4 +1,4 @@
-import Tone from "./tone.js";
+import Tone from "./tone";
 
 describe("Tone", () => {
   beforeEach(() => {

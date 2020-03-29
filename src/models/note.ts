@@ -1,7 +1,7 @@
 /** @module note */
 
-import Octave from "./octave.js";
-import Tone from "./tone.js";
+import Octave from "./octave";
+import Tone from "./tone";
 
 /** Cached Note singletons.
  *

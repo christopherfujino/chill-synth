@@ -1,6 +1,6 @@
-import Note from "./note.js";
-import Octave from "./octave.js";
-import Tone from "./tone.js";
+import Note from "./note";
+import Octave from "./octave";
+import Tone from "./tone";
 
 describe("Note", () => {
   afterEach(() => {

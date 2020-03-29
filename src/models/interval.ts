@@ -1,7 +1,7 @@
 /** @module interval */
 
-import Note from "./note.js";
-import Tone from "./tone.js";
+import Note from "./note";
+import Tone from "./tone";
 
 /** Lazily-loaded cache of interval singletons. */
 const intervalCache = new Map();

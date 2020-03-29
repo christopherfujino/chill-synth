@@ -22,11 +22,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/i,
+        exclude: /node_modules/,
+        use: "ts-loader",
+      },
+      {
         test: /\.jsx$/i,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        }
+        use: "babel-loader",
       },
       {
         test: /\.css$/i,

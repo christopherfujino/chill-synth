@@ -1,9 +1,9 @@
 import { Component, h } from "preact";
 import * as Tonejs from "tone";
-import Chord from "../../models/chord.js";
-import Note from "../../models/note.js";
-import Range from "../../models/range.js";
-import Tone from "../../models/tone.js";
+import Chord from "../../models/chord";
+import Note from "../../models/note";
+import Range from "../../models/range";
+import Tone from "../../models/tone";
 
 const SYNTH_OPTIONS = {
   "oscillator": {

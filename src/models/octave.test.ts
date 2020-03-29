@@ -1,4 +1,4 @@
-import Octave from "./octave.js";
+import Octave from "./octave";
 
 describe("Octave", () => {
   beforeEach(() => {

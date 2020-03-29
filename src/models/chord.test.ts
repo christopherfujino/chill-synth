@@ -1,7 +1,7 @@
-import Chord from "./chord.js";
-import Note from "./note.js";
-import Range from "./range.js";
-import Tone from "./tone.js";
+import Chord from "./chord";
+import Note from "./note";
+import Range from "./range";
+import Tone from "./tone";
 
 describe("Chord", () => {
   afterEach(() => {
