@@ -1,5 +1,3 @@
-/** @module utils */
-
 /** Get a random element from the inpur arr.
  *
  * @param {Array} arr - Input array.
