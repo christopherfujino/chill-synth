@@ -26,7 +26,7 @@ export default class Tone {
   /** Create a new Tone. Prefer Tone.create(), as it lazily loads.
    *
    * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale. */
-  constructor(toneNumber) {
+  constructor(toneNumber: number) {
     if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > TONES_IN_OCTAVE - 1) {
       throw new Error(`${toneNumber} is not a valid toneNumber (0-11)!`);
     }
@@ -72,7 +72,7 @@ export default class Tone {
    * @param {number} toneNumber A number between 0 and 11, mapping to the chromatic scale.
    * @returns {Tone} A lazily-loaded Tone.
    */
-  static create(toneNumber) {
+  static create(toneNumber: number) {
     if (toneCache.has(toneNumber)) {
       return toneCache.get(toneNumber);
     }
