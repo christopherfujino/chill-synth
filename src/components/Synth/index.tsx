@@ -5,18 +5,6 @@ import Note from "../../models/note";
 import Range from "../../models/range";
 import Tone from "../../models/tone";
 
-const SYNTH_OPTIONS = {
-  "oscillator": {
-    "type": "sawtooth",
-  },
-  "envelope": {
-    "attack": 0.025,
-    "decay": 0.175,
-    "sustain": 0,
-    "release": 0.75,
-  },
-};
-
 interface Props {
   audioContextStarted: boolean;
   updateAudioContext: (started: boolean) => void;
@@ -53,8 +41,18 @@ export default class Synth extends Component<Props, State> {
     this.updateEnvelope = this.updateEnvelope.bind(this);
 
     this.synth = new Tonejs.PolySynth(
-      Tonejs.MonoSynth,
-      SYNTH_OPTIONS
+      Tonejs.Synth,
+      {
+        "oscillator": {
+          "type": "sawtooth",
+        },
+        "envelope": {
+          "attack": 0.025,
+          "decay": 0.175,
+          "sustain": 0,
+          "release": 0.75,
+        },
+      }
     ).toDestination();
 
     this.range = Range.create(Note.create(36), Note.create(90));
