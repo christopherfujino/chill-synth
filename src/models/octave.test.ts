@@ -6,7 +6,6 @@ describe("Octave", () => {
   });
 
   it("will throw if passed an invalid `octaveNumber`", () => {
-    expect(() => new Octave()).toThrow();
     expect(() => new Octave(-2)).toThrow();
     expect(() => new Octave(11)).toThrow();
   });

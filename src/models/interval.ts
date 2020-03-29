@@ -15,19 +15,18 @@ export default class Interval {
    *
    * @param {number} distance - Number of semitones in this interval.
    */
-  constructor(distance) {
-    if (distance === undefined) {
-      throw "Must supply distance!";
-    }
+  constructor(distance: number) {
     this.distance = distance;
   }
+
+  distance: number;
 
   /**
    * Lazily load interval from cache.
    *
    * @param {number} distance - Number of semitones in this interval.
    * @returns {Interval} - Lazily-loaded interval. */
-  static create(distance) {
+  static create(distance: number): Interval {
     if (intervalCache.has(distance)) {
       return intervalCache.get(distance);
     }
@@ -42,7 +41,7 @@ export default class Interval {
    * @param {Note} sourceNote - The Note to start from.
    * @returns {Note} - The new (lazily-loaded) Note.
    */
-  getNote(sourceNote) {
+  getNote(sourceNote: Note): Note {
     return Note.create(sourceNote.midiNumber + this.distance);
   }
 
@@ -52,7 +51,7 @@ export default class Interval {
    * @param {Tone} sourceTone - The Tone to start from.
    * @returns {Tone} - The new (lazily-loaded) Tone.
    */
-  getTone(sourceTone) {
+  getTone(sourceTone: Tone): Tone {
     return Tone.create(sourceTone.toneNumber + this.distance);
   }
 
@@ -61,7 +60,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get unison() {
+  static get unison(): Interval {
     return Interval.create(0);
   }
 
@@ -70,7 +69,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get semitone() {
+  static get semitone(): Interval {
     return Interval.create(1);
   }
 
@@ -79,7 +78,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get minorSecond() {
+  static get minorSecond(): Interval {
     return Interval.create(1);
   }
 
@@ -88,7 +87,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get wholeTone() {
+  static get wholeTone(): Interval {
     return Interval.create(2);
   }
 
@@ -97,7 +96,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get majorSecond() {
+  static get majorSecond(): Interval {
     return Interval.create(2);
   }
 
@@ -106,7 +105,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get minorThird() {
+  static get minorThird(): Interval {
     return Interval.create(3);
   }
 
@@ -115,7 +114,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get majorThird() {
+  static get majorThird(): Interval {
     return Interval.create(4);
   }
 
@@ -124,7 +123,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get perfectFourth() {
+  static get perfectFourth(): Interval {
     return Interval.create(5);
   }
 
@@ -133,7 +132,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get tritone() {
+  static get tritone(): Interval {
     return Interval.create(6);
   }
 
@@ -142,7 +141,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get perfectFifth() {
+  static get perfectFifth(): Interval {
     return Interval.create(7);
   }
 
@@ -151,7 +150,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get minorSixth() {
+  static get minorSixth(): Interval {
     return Interval.create(8);
   }
 
@@ -160,7 +159,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get majorSixth() {
+  static get majorSixth(): Interval {
     return Interval.create(9);
   }
 
@@ -169,7 +168,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get minorSeventh() {
+  static get minorSeventh(): Interval {
     return Interval.create(10);
   }
 
@@ -178,7 +177,7 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get majorSeventh() {
+  static get majorSeventh(): Interval {
     return Interval.create(11);
   }
 
@@ -187,14 +186,14 @@ export default class Interval {
    *
    * @returns {Interval} - Lazily-loaded Interval.
    */
-  static get octave() {
+  static get octave(): Interval {
     return Interval.create(12);
   }
 
   /**
    * For testing purposes - clear the cache.
    */
-  static resetCache() {
+  static resetCache(): void {
     intervalCache.clear();
   }
 }

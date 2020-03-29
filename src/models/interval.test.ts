@@ -6,10 +6,6 @@ describe("interval", () => {
     Interval.resetCache();
   });
 
-  it("throws if no distance provided to constructor", () => {
-    expect(() => new Interval()).toThrow();
-  });
-
   it("constructs successfully", () => {
     const interval = new Interval(1);
     expect(interval).toBeInstanceOf(Interval);

@@ -7,10 +7,6 @@ describe("Note", () => {
     Note.resetCache();
   });
 
-  it("throws an exception when no constructor arg provided", () => {
-    expect(() => new Note()).toThrow();
-  });
-
   it("constructs without exception when midiNumber provided", () => {
     const note = new Note(3);
     expect(note).toBeInstanceOf(Note);

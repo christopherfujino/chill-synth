@@ -8,10 +8,6 @@ describe("Chord", () => {
     Chord.resetCache();
   });
 
-  it("throws an exception if constructor is invoked without any arguments", () => {
-    expect(() => new Chord()).toThrow();
-  });
-
   it("constructs successfully if passed an Array of tones", () => {
     const chord = new Chord([new Tone(0), new Tone(3), new Tone(7)]);
     expect(chord).toBeInstanceOf(Chord);

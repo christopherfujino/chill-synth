@@ -13,20 +13,21 @@ export default class Range {
    *
    * @param {Note} startNote Starting note of the range.
    * @param {Note} endNote Ending note of the range. */
-  constructor(startNote, endNote) {
+  constructor(startNote: Note, endNote: Note) {
     if (startNote.midiNumber > endNote.midiNumber) {
       throw new Error(`startNote (${startNote}) is greater than endNote (${endNote})!`);
     }
-    /** @type {Note} */
     this.startNote = startNote;
-    /** @type {Note} */
     this.endNote = endNote;
   }
+
+  startNote: Note;
+  endNote: Note;
 
   /** String corresponding to Range.
    *
    * @returns {string} - String representation of this Range. */
-  toString() {
+  toString(): string {
     return `${this.startNote.toString()} - ${this.endNote.toString()}`;
   }
 
@@ -35,7 +36,7 @@ export default class Range {
    * @param {Note} startNote First note of range, inclusive.
    * @param {Note} endNote Last note of range, inclusive.
    * @returns {Range} Lazily-loaded Range. */
-  static create(startNote, endNote) {
+  static create(startNote: Note, endNote: Note): Range {
     const key = `${startNote.toString()} - ${endNote.toString()}`;
     if (rangeCache.has(key)) {
       return rangeCache.get(key);
@@ -46,7 +47,7 @@ export default class Range {
   }
 
   /** For testing. */
-  static resetCache() {
+  static resetCache(): void {
     rangeCache.clear();
   }
 }
