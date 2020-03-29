@@ -29,7 +29,7 @@ module.exports = {
         ],
         use: [{
           loader: "ts-loader",
-          options: {onlyCompileBundledFiles: true}, // so failing tests don't block build
+//          options: {onlyCompileBundledFiles: true}, // so failing tests don't block build
         }],
       },
       {

@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { render } from "enzyme";
-import { App } from "./index.jsx";
+import { App } from "./index";
 
 jest.mock("./components/Synth/index");
 jest.mock("./components/TransportControl");
