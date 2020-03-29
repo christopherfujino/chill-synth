@@ -25,9 +25,12 @@ module.exports = {
         test: /\.tsx?$/i,
         exclude: [
           /node_modules/,
-          /test\.tsx?$/,
+          /test/,
         ],
-        use: "ts-loader",
+        use: [{
+          loader: "ts-loader",
+          options: {onlyCompileBundledFiles: true}, // so failing tests don't block build
+        }],
       },
       {
         test: /\.jsx$/i,

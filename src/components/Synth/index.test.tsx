@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { render, shallow } from "enzyme";
-import Synth from "./index.jsx";
+import Synth from "./index";
 
 jest.mock("tone", () => {
   const Loop = jest.fn().mockImplementation(() => {
