@@ -22,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/i,
+        test: /\.ts$/i,
         exclude: /node_modules/,
         use: "ts-loader",
       },
@@ -36,5 +36,10 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
     ],
+  },
+  // Teach webpack how to resolve module imports
+  // https://webpack.js.org/configuration/resolve/#root
+  resolve: {
+    extensions: [ ".js", ".jsx", ".ts", ".tsx" ],
   }
 };
