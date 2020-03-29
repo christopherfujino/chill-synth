@@ -22,7 +22,7 @@ interface State {
   chord: Chord;
   chords: Chord[];
   isPlaying: boolean;
-  note: Note;
+  note: Note | null; // TODO make non-nullable
   waveform: string;
 }
 
@@ -120,7 +120,7 @@ export default class Synth extends Component<Props, State> {
 
     const loop = new Tonejs.Loop((time) => {
       const {chord} = this.state,
-        notes: Note[] = [];
+        notes: string[] = [];
       for (let i = 0; i < 3; i++) {
         notes.push(chord.takeRandomInRange(this.range).toString());
       }
@@ -132,7 +132,6 @@ export default class Synth extends Component<Props, State> {
   oscillatorWaveFormSelectors: any; // TODO: jsx
   chordInterface: any; // TODO: jsx
   range: Range;
-  state: any; // TODO: schema
   synth: any; // TODO: PolySynth
 
   updateOscillator(waveform: string): void {
@@ -223,7 +222,11 @@ export default class Synth extends Component<Props, State> {
                 <div className="column col-6">
                   <input
                     type="range"
-                    onInput={(e): void => this.updateEnvelope(field, e?.target?.value)}
+                    onInput={
+                      (e): void =>
+                        this.updateEnvelope(
+                          field,
+                          (e?.target as HTMLInputElement)?.value)}
                     min="0"
                     max="2"
                     step="0.025"
