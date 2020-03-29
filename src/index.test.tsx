@@ -2,8 +2,8 @@ import { h } from "preact";
 import { render } from "enzyme";
 import { App } from "./index.jsx";
 
-jest.mock("./components/Synth/index.jsx");
-jest.mock("./components/TransportControl.jsx");
+jest.mock("./components/Synth/index");
+jest.mock("./components/TransportControl");
 // spectre.css is globally stubbed in jest config
 
 describe("<App />", () => {
