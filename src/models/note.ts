@@ -1,23 +1,19 @@
 /** @module note */
 
-import Octave from "./octave.js";
-import Tone from "./tone.js";
+import Octave from "./octave";
+import Tone from "./tone";
 
 /** Cached Note singletons.
  *
  * @type {Map} */
-const noteCache = new Map();
+const noteCache: Map<number, Note> = new Map();
 
 /** A precise pitch. */
 export default class Note {
   /** Should not be invoked directly, instead use .create().
    *
    * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127. */
-  constructor(midiNumber) {
-    if (typeof midiNumber !== "number") {
-      throw new Error("You must provide a midiNumber when constructing a Note");
-    }
-
+  constructor(midiNumber: number) {
     /** @type {number} */
     this.midiNumber = midiNumber;
 
@@ -28,12 +24,16 @@ export default class Note {
     this.octave = Octave.create(Math.floor(this.midiNumber / 12) - 1);
   }
 
+  midiNumber: number;
+  octave: Octave;
+  tone: Tone;
+
   /** String corresponding to Note, of the form C#4.
    *
    * See https://tonejs.github.io/docs/13.8.25/Type#frequency for more info.
    *
    * @returns {string} - String representation of this Note. */
-  toString() {
+  toString(): string {
     return `${this.tone.toString()}${this.octave.toString()}`;
   }
 
@@ -42,7 +42,7 @@ export default class Note {
    * @param {Tone} tone Input tone.
    * @param {Octave} octave Input octave.
    * @returns {Note} Lazily-loaded Note. */
-  static fromTone(tone, octave) {
+  static fromTone(tone: Tone, octave: Octave): Note {
     return Note.create(tone.toneNumber + octave.noteOffset());
   }
 
@@ -50,17 +50,18 @@ export default class Note {
    *
    * @param {number} midiNumber - Number corresponding to MIDI value of note, from 0-127.
    * @returns {Note} - Lazily-loaded Note. */
-  static create(midiNumber) {
-    if (noteCache.has(midiNumber)) {
-      return noteCache.get(midiNumber);
+  static create(midiNumber: number): Note {
+    let note = noteCache.get(midiNumber);
+    if (note !== undefined) {
+      return note;
     }
-    const note = new Note(midiNumber);
+    note = new Note(midiNumber);
     noteCache.set(midiNumber, note);
     return note;
   }
 
   /** For testing. Also clears Tone and Octave caches. */
-  static resetCache() {
+  static resetCache(): void {
     noteCache.clear();
     Tone.resetCache(); // Since we lazily-load Tones in the constructor
     Octave.resetCache(); // We lazily-load Octave in the constructor

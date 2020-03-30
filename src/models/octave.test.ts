@@ -1,4 +1,4 @@
-import Octave from "./octave.js";
+import Octave from "./octave";
 
 describe("Octave", () => {
   beforeEach(() => {
@@ -6,7 +6,6 @@ describe("Octave", () => {
   });
 
   it("will throw if passed an invalid `octaveNumber`", () => {
-    expect(() => new Octave()).toThrow();
     expect(() => new Octave(-2)).toThrow();
     expect(() => new Octave(11)).toThrow();
   });

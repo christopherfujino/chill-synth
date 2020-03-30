@@ -1,12 +1,12 @@
-import Tone from "./tone.js";
+import Tone from "./tone";
 
 describe("Tone", () => {
   beforeEach(() => {
     Tone.resetCache();
   });
 
-  it("throws if no argument passed", () => {
-    expect(() => new Tone()).toThrow();
+  it("throws if invalid number passed", () => {
+    expect(() => new Tone(-1)).toThrow();
   });
 
   it(".toString() returns valid string", () => {

@@ -1,13 +1,9 @@
-import Interval from "./interval.js";
-import Note from "./note.js";
+import Interval from "./interval";
+import Note from "./note";
 
 describe("interval", () => {
   afterEach(() => {
     Interval.resetCache();
-  });
-
-  it("throws if no distance provided to constructor", () => {
-    expect(() => new Interval()).toThrow();
   });
 
   it("constructs successfully", () => {

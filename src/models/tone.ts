@@ -1,6 +1,7 @@
 /** @module tone */
 
-import Note from "./note.js";
+import Note from "./note";
+import Range from "./range";
 
 const toneMap = new Map([
   [0, "C"],
@@ -26,31 +27,34 @@ export default class Tone {
   /** Create a new Tone. Prefer Tone.create(), as it lazily loads.
    *
    * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale. */
-  constructor(toneNumber) {
-    if (typeof toneNumber !== "number" || toneNumber < 0 || toneNumber > TONES_IN_OCTAVE - 1) {
+  constructor(toneNumber: number) {
+    if (toneNumber < 0 || toneNumber > TONES_IN_OCTAVE - 1) {
       throw new Error(`${toneNumber} is not a valid toneNumber (0-11)!`);
     }
-    /** Numeric mapping of notes in chromatic scale; C == 0.
-     *
-     * @type {number} */
     this.toneNumber = toneNumber;
   }
+
+  toneNumber: number;
 
   /**
    * Get name for this tone.
    *
    * @returns {string} The string representing this tone.
    */
-  toString() {
-    return toneMap.get(this.toneNumber);
+  toString(): string {
+    const toneValue = toneMap.get(this.toneNumber);
+    if (toneValue === undefined) {
+      throw new Error(`Invalid toneNumber ${this.toneNumber}`);
+    }
+    return toneValue;
   }
 
   /** Given a Range, find all notes matching this tone within the range.
    *
    * @param {Range} range Range notes must be within.
    * @returns {Note[]} Array of all matching notes within the range. */
-  findNotesFromRange(range) {
-    const notes = [];
+  findNotesFromRange(range: Range): Note[] {
+    const notes: Note[] = [];
     // TODO: code smell, implementation leakage
     const startNum = range.startNote.midiNumber;
     const endNum = range.endNote.midiNumber;
@@ -72,7 +76,7 @@ export default class Tone {
    * @param {number} toneNumber A number between 0 and 11, mapping to the chromatic scale.
    * @returns {Tone} A lazily-loaded Tone.
    */
-  static create(toneNumber) {
+  static create(toneNumber: number): Tone {
     if (toneCache.has(toneNumber)) {
       return toneCache.get(toneNumber);
     }
@@ -85,7 +89,7 @@ export default class Tone {
   }
 
   /** For testing. */
-  static resetCache() {
+  static resetCache(): void {
     toneCache.clear();
   }
 }

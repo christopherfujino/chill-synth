@@ -1,5 +1,5 @@
-import Scale from "./scale.js";
-import Tone from "./tone.js";
+import Scale from "./scale";
+import Tone from "./tone";
 
 describe("Scale", () => {
   afterEach(() => {

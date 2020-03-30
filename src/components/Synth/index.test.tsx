@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { render, shallow } from "enzyme";
-import Synth from "./index.jsx";
+import Synth from "./index";
 
 jest.mock("tone", () => {
   const Loop = jest.fn().mockImplementation(() => {
@@ -35,12 +35,11 @@ jest.mock("tone", () => {
 });
 
 describe("<Synth />", () => {
-  let consoleLog;
+  let consoleLog: Function;
   beforeEach(() => {
     consoleLog = jest.fn();
-    global.console = {
-      "log": consoleLog,
-    };
+    const cons = {"log": consoleLog} as Console;
+    global.console = cons;
   });
 
   describe("static rendering", () => {
@@ -51,12 +50,6 @@ describe("<Synth />", () => {
           updateAudioContext={() => null}
         />
       );
-    });
-
-    it("fails if not passed audioContextStarted prop", () => {
-      expect(() => render(
-        <Synth updateAudioContext={() => null} />)
-      ).toThrow();
     });
 
     it("renders text reflecting audioContextStarted prop", () => {

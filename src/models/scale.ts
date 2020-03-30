@@ -1,7 +1,7 @@
 /** @module scale */
 
-import { takeRandom } from "../utils.js";
-import Tone from "./tone.js";
+import { takeRandom } from "../utils";
+import Tone from "./tone";
 
 /** A sequence of seven Notes. */
 export default class Scale {
@@ -11,17 +11,19 @@ export default class Scale {
     this.tones = [0, 2, 4, 5, 7, 9, 11].map((num) => Tone.create(num));
   }
 
+  tones: Tone[];
+
   /**
    * Return a random tone from this scale.
    *
    * @returns {Tone} - A random tone within this scale.
    */
-  getTone() {
+  getTone(): Tone {
     return takeRandom(this.tones);
   }
 
   /** For testing. */
-  static resetCache() {
+  static resetCache(): void {
     // TODO implement once a cache is set
   }
 }

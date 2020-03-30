@@ -1,10 +1,18 @@
-import { Component, h, render } from "preact";
-import Synth from "./components/Synth/index.jsx";
-import TransportControl from "./components/TransportControl.jsx";
+import { Component, ComponentChild, h, render } from "preact";
+import Synth from "./components/Synth/index";
+import TransportControl from "./components/TransportControl";
 import "spectre.css";
 
-export class App extends Component {
-  constructor(props) {
+interface Props {
+  title: string;
+}
+
+interface State {
+  audioContextStarted: boolean;
+}
+
+export class App extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.updateAudioContext = this.updateAudioContext.bind(this);
@@ -14,11 +22,11 @@ export class App extends Component {
     };
   }
 
-  updateAudioContext(started) {
+  updateAudioContext(started: boolean): void {
     this.setState({"audioContextStarted": started});
   }
 
-  render(props, state) {
+  render(props: Props, state: State): ComponentChild {
     return (
       <div className="container">
         <div className="columns text-center">

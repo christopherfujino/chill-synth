@@ -1,15 +1,11 @@
-import Chord from "./chord.js";
-import Note from "./note.js";
-import Range from "./range.js";
-import Tone from "./tone.js";
+import Chord from "./chord";
+import Note from "./note";
+import Range from "./range";
+import Tone from "./tone";
 
 describe("Chord", () => {
   afterEach(() => {
     Chord.resetCache();
-  });
-
-  it("throws an exception if constructor is invoked without any arguments", () => {
-    expect(() => new Chord()).toThrow();
   });
 
   it("constructs successfully if passed an Array of tones", () => {

@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { render, mount } from "enzyme";
-import TransportControl from "./TransportControl.jsx";
+import TransportControl from "./TransportControl";
 
 jest.mock("tone", () => {
   const Transport = {

@@ -1,8 +1,10 @@
 /** @module chord */
 
-import { takeRandom } from "../utils.js";
-import Interval from "./interval.js";
-import Tone from "./tone.js";
+import { takeRandom } from "../utils";
+import Interval from "./interval";
+import Note from "./note";
+import Range from "./range";
+import Tone from "./tone";
 
 /** Cache of chord singletons. */
 const chordCache = new Map();
@@ -12,10 +14,7 @@ export default class Chord {
   /** Create a new Chord from an Array of Tones.
    *
    * @param {Tone[]} tones Tones to compose Chord with. */
-  constructor(tones) {
-    if (tones === undefined || tones.length < 1) {
-      throw new Error(`An array of tones must be provided; tones: ${tones}`);
-    }
+  constructor(tones: Tone[]) {
     /** Array of tones in the chord.
      *
      * @type {Tone[]} */
@@ -24,11 +23,14 @@ export default class Chord {
     this.hashValue = undefined;
   }
 
+  tones: Tone[];
+  hashValue: string | undefined;
+
   /** Lazily-load a Chord from the given Tones.
    *
    * @param {Tone[]} tones Tones to compose Chord with.
    * @returns {Chord} Lazily-loaded Chord. */
-  static create(tones) {
+  static create(tones: Tone[]): Chord {
     const key = Chord.hashTones(tones);
     if (chordCache.has(key)) {
       return chordCache.get(key);
@@ -38,29 +40,29 @@ export default class Chord {
     return chord;
   }
 
-  toString() {
+  toString(): string {
     return Chord.hashTones(this.tones);
   }
 
   /** Uniquely-identifying string of all Tones in this Chord.
    *
    * @returns {string} Hash string. */
-  get hashString() {
+  get hashString(): string {
     return Chord.hashTones(this.tones);
   }
 
   /** Return a random note within the given range from this Chord.
    *
    * @param {Range} range Inclusive range from which to return Notes.
-   * @returns {Tone} A random tone. */
-  takeRandomInRange(range) {
+   * @returns {Tone} A random note. */
+  takeRandomInRange(range: Range): Note {
     const notes = [];
     for (let i = 0; i < this.tones.length; i++) {
       const notesFromTone = this.tones[i].findNotesFromRange(range);
-      notes.push(...notesFromTone);
+      Array.prototype.push.apply(notes, notesFromTone);
     }
 
-    return takeRandom(notes);
+    return takeRandom<Note>(notes);
   }
 
   /** Concatenate the .toString of each tone in the provided Array.
@@ -70,15 +72,18 @@ export default class Chord {
    *
    * @param {Tone[]} tones The tones you wish to get a unique identifier for.
    * @returns {string} A hash string of the input tones. */
-  static hashTones(tones) {
-    return tones.reduce((acc, cur) => acc + cur.toString());
+  static hashTones(tones: Tone[]): string {
+    return tones.reduce<string>(
+      (acc: string, cur: Tone) => `${acc}${cur.toString()}`,
+      "",
+    );
   }
 
   /** Return a major chord based on a root tone.
    *
    * @param {Tone} rootTone Tone corresponding to the root of the chord.
    * @returns {Chord} A major chord. */
-  static majorChord(rootTone) {
+  static majorChord(rootTone: Tone): Chord {
     const third = Interval.majorThird.getTone(rootTone);
     const fifth = Interval.perfectFifth.getTone(rootTone);
     return Chord.create([rootTone, third, fifth]);
@@ -88,7 +93,7 @@ export default class Chord {
    *
    * @param {Tone} rootTone Tone corresponding to the root of the chord.
    * @returns {Chord} A minor chord. */
-  static minorChord(rootTone) {
+  static minorChord(rootTone: Tone): Chord {
     const third = Interval.minorThird.getTone(rootTone);
     const fifth = Interval.perfectFifth.getTone(rootTone);
     return Chord.create([rootTone, third, fifth]);
@@ -98,14 +103,14 @@ export default class Chord {
    *
    * @param {Tone} rootTone Tone corresponding to the root of the chord.
    * @returns {Chord} A diminished chord. */
-  static diminished(rootTone) {
+  static diminished(rootTone: Tone): Chord {
     const third = Interval.minorThird.getTone(rootTone);
     const fifth = Interval.tritone.getTone(rootTone);
     return Chord.create([rootTone, third, fifth]);
   }
 
   /** For testing. */
-  static resetCache() {
+  static resetCache(): void {
     chordCache.clear();
   }
 }
