@@ -35,12 +35,11 @@ jest.mock("tone", () => {
 });
 
 describe("<Synth />", () => {
-  let consoleLog;
+  let consoleLog: Function;
   beforeEach(() => {
     consoleLog = jest.fn();
-    global.console = {
-      "log": consoleLog,
-    };
+    const cons = {"log": consoleLog} as Console;
+    global.console = cons;
   });
 
   describe("static rendering", () => {
