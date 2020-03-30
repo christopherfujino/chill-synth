@@ -226,7 +226,7 @@ export default class Synth extends Component<Props, State> {
                       (e): void =>
                         this.updateEnvelope(
                           field,
-                          (e?.target as HTMLInputElement)?.value)}
+                          (e.target as HTMLInputElement).value)}
                     min="0"
                     max="2"
                     step="0.025"

@@ -35,13 +35,13 @@ jest.mock("tone", () => {
 });
 
 describe("<Synth />", () => {
-  //let consoleLog;
-  //beforeEach(() => {
-  //  consoleLog = jest.fn();
-  //  global.console = {
-  //    "log": consoleLog,
-  //  };
-  //});
+  let consoleLog;
+  beforeEach(() => {
+    consoleLog = jest.fn();
+    global.console = {
+      "log": consoleLog,
+    };
+  });
 
   describe("static rendering", () => {
     it("succeeds", () => {
@@ -51,12 +51,6 @@ describe("<Synth />", () => {
           updateAudioContext={() => null}
         />
       );
-    });
-
-    it("fails if not passed audioContextStarted prop", () => {
-      expect(() => render(
-        <Synth updateAudioContext={() => null} />)
-      ).toThrow();
     });
 
     it("renders text reflecting audioContextStarted prop", () => {
@@ -88,8 +82,8 @@ describe("<Synth />", () => {
           updateAudioContext={mock}
         />);
       wrapper.find("button.play-button").simulate("click");
-      //expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
-      //expect(consoleLog).toHaveBeenCalledWith("Play tone!");
+      expect(consoleLog).toHaveBeenCalledWith("Initiating toggle");
+      expect(consoleLog).toHaveBeenCalledWith("Play tone!");
       expect(mock.mock.calls.length).toBe(1);
       // First arg of first invocation was true
       expect(mock.mock.calls[0][0]).toBe(true);

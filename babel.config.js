@@ -3,7 +3,12 @@ module.exports = api => {
 
   const exports = {
     "presets": [
-      "@babel/preset-typescript",
+      [
+        "@babel/preset-typescript",
+        {
+          "jsxPragma": "h",
+        },
+      ],
     ],
     "plugins": [
       [

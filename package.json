@@ -12,6 +12,7 @@
     "lint": "eslint ./src --ext .jsx,.js,.tsx,.ts",
     "serve": "node server.js",
     "test": "jest",
+    "test-debug": "jest --runInBand",
     "update": "npm update",
     "update-packages": "ncu -u",
     "watch": "webpack --watch"

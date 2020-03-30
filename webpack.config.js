@@ -4,11 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const appTitle = "ChillSynth";
 
-throw new Error("Hi!"); // TODO remove to fix build
-
-module.exports = env => {
-  const isTest = env.test;
-
+module.exports = () => { // arg is env
   const exports = {
     devtool: "inline-source-map",
     entry: "./src/index.tsx",
@@ -32,10 +28,7 @@ module.exports = env => {
             /node_modules/,
             /test/,
           ],
-          use: [{
-            loader: "ts-loader",
-            //          options: {onlyCompileBundledFiles: true}, // so failing tests don't block build
-          }],
+          use: "ts-loader",
         },
         {
           test: /\.jsx$/i,
