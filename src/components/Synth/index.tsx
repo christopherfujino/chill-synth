@@ -22,7 +22,6 @@ interface State {
   chord: Chord;
   chords: Chord[];
   isPlaying: boolean;
-  note: Note | null; // TODO make non-nullable
   waveform: string;
 }
 
@@ -96,7 +95,7 @@ export default class Synth extends Component<Props, State> {
           <button
             className="btn"
             key={shape}
-            onClick={(): void => this.updateOscillator(shape)}>
+            onClick={(): void => this.updateOscillator(shape as OscillatorType)}>
             {shape}
           </button>
         ))}
@@ -114,7 +113,6 @@ export default class Synth extends Component<Props, State> {
       chord: chords[0],
       chords: chords,
       isPlaying: false,
-      note: null,
       waveform: synthAttributes.oscillator.type,
     };
 
@@ -129,12 +127,12 @@ export default class Synth extends Component<Props, State> {
 
     loop.start(0); // start loop at beginning of timeline
   }
-  oscillatorWaveFormSelectors: any; // TODO: jsx
-  chordInterface: any; // TODO: jsx
+  oscillatorWaveFormSelectors: ComponentChild;
+  chordInterface: ComponentChild;
   range: Range;
-  synth: any; // TODO: PolySynth
+  synth: Tonejs.PolySynth;
 
-  updateOscillator(waveform: string): void {
+  updateOscillator(waveform: OscillatorType): void {
     this.setState(() => {
       this.synth.set({
         "oscillator": {
@@ -184,14 +182,12 @@ export default class Synth extends Component<Props, State> {
 
   render(props: Props, state: State): ComponentChild {
     const {toggleIsPlaying} = this;
-    const {note, waveform} = state,
+    const {waveform} = state,
       { audioContextStarted } = props;
-    const noteDescriptor = note === null ? "" : note.toString();
     return (
       <div>
         <h3>My Great Synth</h3>
         <div className="audio-context-indicator">Tonejs: {audioContextStarted ? "on" : "off"}</div>
-        <div>Current Note: {noteDescriptor}</div>
         <div>Current Chord: {state.chord.toString()}</div>
         <button
           className="play-button btn"

@@ -1,7 +1,11 @@
-import { Component, h } from "preact";
+import { Component, ComponentChild, h } from "preact";
 import * as Tonejs from "tone";
 
-export default class TransportControl extends Component {
+interface State {
+  bpm: number;
+}
+
+export default class TransportControl extends Component<{}, State> {
   constructor() {
     super();
 
@@ -12,7 +16,7 @@ export default class TransportControl extends Component {
     };
   }
 
-  changeBpm(event) {
+  changeBpm(event): void {
     const nextBpm = Number(event.target.value);
     this.setState(() => {
       Tonejs.Transport.bpm.value = nextBpm;
@@ -20,7 +24,7 @@ export default class TransportControl extends Component {
     });
   }
 
-  render(_, state) {
+  render(_: {}, state: State): ComponentChild {
     const bpmNum = state.bpm;
     const { changeBpm } = this;
 

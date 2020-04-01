@@ -47,7 +47,7 @@ describe("<Synth />", () => {
       render(
         <Synth
           audioContextStarted={false}
-          updateAudioContext={() => null}
+          updateAudioContext={(): void => undefined}
         />
       );
     });
@@ -56,7 +56,7 @@ describe("<Synth />", () => {
       const synth = render(
         <Synth
           audioContextStarted={false}
-          updateAudioContext={() => null}
+          updateAudioContext={(): void => undefined}
         />);
       expect(synth.find("div.audio-context-indicator").text()).toBe("Tonejs: off");
     });
@@ -67,7 +67,7 @@ describe("<Synth />", () => {
       const wrapper = shallow(
         <Synth
           audioContextStarted={false}
-          updateAudioContext={() => null}
+          updateAudioContext={(): void => undefined}
         />
       );
       expect(wrapper.find("button")).toHaveLength(12);
