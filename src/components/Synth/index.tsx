@@ -27,12 +27,6 @@ interface State {
 
 export default class Synth extends Component<Props, State> {
   constructor(props: Props) {
-    if (props.audioContextStarted === undefined) {
-      throw new Error("Must provide audioContextStarted prop");
-    }
-    if (props.updateAudioContext === undefined) {
-      throw new Error("Must provide updateAudioContext");
-    }
     super(props);
 
     this.updateOscillator = this.updateOscillator.bind(this);
