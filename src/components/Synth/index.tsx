@@ -3,7 +3,7 @@ import * as Tonejs from "tone";
 import Chord from "../../models/chord";
 import Note from "../../models/note";
 import Range from "../../models/range";
-import Tone from "../../models/tone";
+import { Tone } from "../../models/tone";
 
 interface Props {
   audioContextStarted: boolean;
@@ -25,6 +25,7 @@ interface State {
   waveform: string;
 }
 
+/** Polyphonic Synth instance, with controls. */
 export default class Synth extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

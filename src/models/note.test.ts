@@ -1,6 +1,6 @@
 import Note from "./note";
 import Octave from "./octave";
-import Tone from "./tone";
+import { Tone } from "./tone";
 
 describe("Note", () => {
   afterEach(() => {

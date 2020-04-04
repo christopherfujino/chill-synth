@@ -4,13 +4,16 @@ import TransportControl from "./components/TransportControl";
 import "spectre.css";
 
 interface Props {
+  /** App Title. */
   title: string;
 }
 
 interface State {
+  /** For WebAudio, the context must be triggered by user interaction. */
   audioContextStarted: boolean;
 }
 
+/** Top-level Preact Wrapper. */
 export class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

@@ -1,7 +1,7 @@
 import Chord from "./chord";
 import Note from "./note";
 import Range from "./range";
-import Tone from "./tone";
+import { Tone } from "./tone";
 
 describe("Chord", () => {
   afterEach(() => {

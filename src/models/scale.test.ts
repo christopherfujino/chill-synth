@@ -1,5 +1,5 @@
 import Scale from "./scale";
-import Tone from "./tone";
+import { Tone } from "./tone";
 
 describe("Scale", () => {
   afterEach(() => {

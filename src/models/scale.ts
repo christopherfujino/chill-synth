@@ -1,7 +1,7 @@
 /** @module scale */
 
 import { takeRandom } from "../utils";
-import Tone from "./tone";
+import { Tone } from "./tone";
 
 /** A sequence of seven Notes. */
 export default class Scale {
@@ -16,7 +16,7 @@ export default class Scale {
   /**
    * Return a random tone from this scale.
    *
-   * @returns {Tone} - A random tone within this scale.
+   * @returns A random tone within this scale.
    */
   getTone(): Tone {
     return takeRandom(this.tones);

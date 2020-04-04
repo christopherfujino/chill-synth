@@ -3,7 +3,7 @@
 import Note from "./note";
 import Range from "./range";
 
-const toneMap = new Map([
+const toneMap = new Map<number, string>([
   [0, "C"],
   [1, "C#"],
   [2, "D"],
@@ -18,20 +18,33 @@ const toneMap = new Map([
   [11, "B"],
 ]);
 
-const toneCache = new Map();
+/** Only sharp accidentals included, since each enum member must be unique. */
+export const enum Name {
+  C = 0,
+  CSharp,
+  D,
+  DSharp,
+  E,
+  F,
+  FSharp,
+  G,
+  GSharp,
+  A,
+  ASharp,
+  B,
+}
+
+const toneCache = new Map<Name, Tone>();
 
 const TONES_IN_OCTAVE = 12;
 
 /** One of the 12 tones. */
-export default class Tone {
+export class Tone {
   /** Create a new Tone. Prefer Tone.create(), as it lazily loads.
    *
-   * @param {number} toneNumber - A number between 0 and 11, mapping to the chromatic scale. */
-  constructor(toneNumber: number) {
-    if (toneNumber < 0 || toneNumber > TONES_IN_OCTAVE - 1) {
-      throw new Error(`${toneNumber} is not a valid toneNumber (0-11)!`);
-    }
-    this.toneNumber = toneNumber;
+   * @param name Descriptor of the tone. */
+  constructor(name: Name) {
+    this.toneNumber = name;
   }
 
   toneNumber: number;
@@ -39,7 +52,7 @@ export default class Tone {
   /**
    * Get name for this tone.
    *
-   * @returns {string} The string representing this tone.
+   * @returns The string representing this tone.
    */
   toString(): string {
     const toneValue = toneMap.get(this.toneNumber);
@@ -51,8 +64,8 @@ export default class Tone {
 
   /** Given a Range, find all notes matching this tone within the range.
    *
-   * @param {Range} range Range notes must be within.
-   * @returns {Note[]} Array of all matching notes within the range. */
+   * @param range Range notes must be within.
+   * @returns Array of all matching notes within the range. */
   findNotesFromRange(range: Range): Note[] {
     const notes: Note[] = [];
     // TODO: code smell, implementation leakage
@@ -73,19 +86,16 @@ export default class Tone {
   /**
    * Will return cached instance first if it exists.
    *
-   * @param {number} toneNumber A number between 0 and 11, mapping to the chromatic scale.
-   * @returns {Tone} A lazily-loaded Tone.
+   * @param name A number between 0 and 11, mapping to the chromatic scale.
+   * @returns A lazily-loaded Tone.
    */
-  static create(toneNumber: number): Tone {
-    if (toneCache.has(toneNumber)) {
-      return toneCache.get(toneNumber);
+  static create(name: Name): Tone {
+    let cached = toneCache.get(name);
+    if (cached === undefined) {
+      cached = new Tone(name);
+      toneCache.set(name, cached);
     }
-    if (toneNumber >= TONES_IN_OCTAVE) {
-      toneNumber = toneNumber % TONES_IN_OCTAVE;
-    }
-    const tone = new Tone(toneNumber);
-    toneCache.set(toneNumber, tone);
-    return tone;
+    return cached;
   }
 
   /** For testing. */

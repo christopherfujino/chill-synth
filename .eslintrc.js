@@ -45,7 +45,7 @@ module.exports = {
     "jsdoc/implements-on-classes": 1, // Recommended
     "jsdoc/match-description": 1,
     "jsdoc/newline-after-description": 1, // Recommended
-    "jsdoc/no-types": 0, // This should only be set if using TS
+    "jsdoc/no-types": 1, // This should only be set if using TS
     "jsdoc/no-undefined-types": 1, // Recommended
     "jsdoc/require-description": 1,
     "jsdoc/require-description-complete-sentence": 1,
@@ -66,11 +66,11 @@ module.exports = {
     "jsdoc/require-param": 1, // Recommended
     "jsdoc/require-param-description": 1, // Recommended
     "jsdoc/require-param-name": 1, // Recommended
-    "jsdoc/require-param-type": 1, // Recommended
+    "jsdoc/require-param-type": 0, // Excluded because we're using typescript
     "jsdoc/require-returns": 1, // Recommended
     "jsdoc/require-returns-check": 1, // Recommended
     "jsdoc/require-returns-description": 1, // Recommended
-    "jsdoc/require-returns-type": 1, // Recommended
+    "jsdoc/require-returns-type": 0, // Excluded because TS
     "jsdoc/valid-types": 1, // Recommended
 
     "react/prop-types": 0, // not included in core preact
