@@ -5,10 +5,6 @@ describe("Tone", () => {
     Tone.resetCache();
   });
 
-  it("throws if invalid number passed", () => {
-    expect(() => new Tone(-1)).toThrow();
-  });
-
   it(".toString() returns valid string", () => {
     const tone = new Tone(0);
 

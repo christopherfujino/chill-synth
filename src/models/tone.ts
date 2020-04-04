@@ -19,7 +19,7 @@ const toneMap = new Map<number, string>([
 ]);
 
 /** Only sharp accidentals included, since each enum member must be unique. */
-export const enum Name {
+export enum Name {
   C = 0,
   CSharp,
   D,
