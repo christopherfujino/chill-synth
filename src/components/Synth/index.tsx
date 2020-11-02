@@ -90,7 +90,8 @@ export default class Synth extends Component<Props, State> {
           <button
             className="btn"
             key={shape}
-            onClick={(): void => this.updateOscillator(shape as OscillatorType)}>
+            onClick={(): void => this.updateOscillator(shape as OscillatorType)}
+          >
             {shape}
           </button>
         ))}

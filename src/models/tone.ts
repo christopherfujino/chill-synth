@@ -44,7 +44,7 @@ export class Tone {
    *
    * @param name Descriptor of the tone. */
   constructor(name: Name) {
-    this.toneNumber = name;
+    this.toneNumber = name % TONES_IN_OCTAVE;
   }
 
   toneNumber: number;
@@ -90,6 +90,7 @@ export class Tone {
    * @returns A lazily-loaded Tone.
    */
   static create(name: Name): Tone {
+    name = name % TONES_IN_OCTAVE;
     let cached = toneCache.get(name);
     if (cached === undefined) {
       cached = new Tone(name);

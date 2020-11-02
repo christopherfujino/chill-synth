@@ -84,8 +84,8 @@ export default class Chord {
    * @param rootTone Tone corresponding to the root of the chord.
    * @returns A major chord. */
   static majorChord(rootTone: Tone): Chord {
-    const third = Interval.majorThird.getTone(rootTone);
-    const fifth = Interval.perfectFifth.getTone(rootTone);
+    const third: Tone = Interval.majorThird.getTone(rootTone);
+    const fifth: Tone = Interval.perfectFifth.getTone(rootTone);
     return Chord.create([rootTone, third, fifth]);
   }
 

@@ -58,7 +58,8 @@ describe("<Synth />", () => {
           audioContextStarted={false}
           updateAudioContext={(): void => undefined}
         />);
-      expect(synth.find("div.audio-context-indicator").text()).toBe("Tonejs: off");
+      expect(synth.find("div.audio-context-indicator").text())
+        .toBe("Tonejs: off");
     });
   });
 
