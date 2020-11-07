@@ -112,17 +112,52 @@ export default class Synth extends Component<Props, State> {
       waveform: synthAttributes.oscillator.type,
     };
 
-    const loop = new Tonejs.Loop((time) => {
-      const {chord} = this.state,
-        notes: string[] = [];
-      for (let i = 0; i < 3; i++) {
-        notes.push(chord.takeRandomInRange(this.range).toString());
-      }
-      this.synth.triggerAttackRelease(notes, "8n", time);
-    }, "4n");
+    /** Ticks per beat */
+    const TICKS = 50;
+
+    const ode = [
+      ["E4", 0, 1],
+      ["E4", 2, 1],
+      ["F4", 4, 1],
+      ["G4", 6, 1],
+      ["G4", 8, 1],
+      ["F4", 10, 1],
+      ["E4", 12, 1],
+      ["D4", 14, 1],
+      ["C4", 16, 1],
+      ["C4", 18, 1],
+      ["D4", 20, 1],
+      ["E4", 22, 1],
+      ["E4", 24, 0.5],
+      ["D4", 27, 0.5],
+      ["D4", 28, 2],
+    ];
+
+    let odeIndex = 0;
+    let tick = 0;
+
+    const loop = new Tonejs.Loop(
+      (time: number): void => {
+        console.log("time", time);
+        const note = ode[odeIndex];
+        console.log(note && `tick: ${tick}\tindex: ${odeIndex}\t length: ${note[2] as number * TICKS}`);
+        if (note !== undefined && tick === note[1]) {
+          this.synth.triggerAttackRelease(note[0], `${note[2] as number * TICKS}i`, time);
+          odeIndex += 1;
+        }
+        // Increment
+        tick += 1;
+        if (tick === 32) {
+          tick = 0;
+          odeIndex = 0;
+        }
+      },
+      `${TICKS}i`,
+    );
 
     loop.start(0); // start loop at beginning of timeline
   }
+
   oscillatorWaveFormSelectors: ComponentChild;
   chordInterface: ComponentChild;
   range: Range;
